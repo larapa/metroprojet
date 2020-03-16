@@ -1,20 +1,21 @@
-package projet;
+package application;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //now we must create graph object and implement dijkstra algorithm
 public class Graphe {
 
 public Sommet[] sommets;
 public int nombreSommets;
-public ArrÃªte[] arrÃªtes;
-private int nombreArrÃªtes;
+public ArrayList<Arrête> arrêtes;
+private int nombreArrêtes;
 private int sat;
 private int eat;
 
 public ArrayList<Sommet> path = new ArrayList<Sommet>();
-public Graphe(ArrÃªte[] t) {
- this.arrÃªtes = t;
+public Graphe(ArrayList<Arrête> t) {
+ this.arrêtes = t;
  this.nombreSommets = calculnombreSommets(t);
  this.sommets = new Sommet[this.nombreSommets];
 
@@ -23,19 +24,19 @@ public Graphe(ArrÃªte[] t) {
  }
 
  // add all the edges to the nodes, each edge added to two nodes (to and from)
- this.nombreArrÃªtes = this.arrÃªtes.length;
+ this.nombreArrêtes = this.arrêtes.size();
 
- for (int m = 0; m < this.nombreArrÃªtes; m++) {
-   this.sommets[arrÃªtes[m].getorigine()].getArrÃªtes().add(arrÃªtes[m]);
-   this.sommets[arrÃªtes[m].getdestination()].getArrÃªtes().add(arrÃªtes[m]);
+ for (int m = 0; m < this.nombreArrêtes; m++) {
+   this.sommets[arrêtes.get(m).getorigine()].getArrêtes().add(arrêtes.get(m));
+   this.sommets[arrêtes.get(m).getdestination()].getArrêtes().add(arrêtes.get(m));
  }
 
 }
 
-private int calculnombreSommets(ArrÃªte[] a) {
+private int calculnombreSommets(ArrayList<Arrête> a) {
  int nombreSommets = 0;
 
- for (ArrÃªte e : a) {
+ for (Arrête e : a) {
    if (e.getdestination() > nombreSommets)
 	   nombreSommets = e.getdestination();
    if (e.getorigine() > nombreSommets)
@@ -48,11 +49,11 @@ private int calculnombreSommets(ArrÃªte[] a) {
 }
 public int StringtoInt(String a) {
 	for (int i=0; i<this.sommets.length;i++) {
-		if (this.sommets[i].nom==a) {
+		if (this.sommets[i].nom.equals(a)) {
 			return i;
 		}
 	}
-	return 1;
+	throw new IllegalArgumentException("nom incorrect");
 }
 
 public void calculateShortestDistances(String a, String b,int k,int l) {
@@ -66,17 +67,17 @@ public void calculateShortestDistances(String a, String b,int k,int l) {
  // visit every node
  for (int i = 0; i < this.sommets.length; i++) {
    // loop around the edges of current node
-   ArrayList<ArrÃªte> currentSommetArcs = this.sommets[nextNode].getArrÃªtes();
+   ArrayList<Arrête> currentSommetArcs = this.sommets[nextNode].getArrêtes();
 
    for (int joinedArc = 0; joinedArc < currentSommetArcs.size(); joinedArc++) {
      int neighbourIndex = currentSommetArcs.get(joinedArc).getnumerovoisin(nextNode);
      
      // only if not visited
-     if (!this.sommets[neighbourIndex].estVisitÃ©()) {
+     if (!this.sommets[neighbourIndex].estVisité()) {
     	
-       int tentative = this.sommets[nextNode].getDistanceÃ laSource() + currentSommetArcs.get(joinedArc).getpoids();
+       int tentative = this.sommets[nextNode].getDistanceàlaSource() + currentSommetArcs.get(joinedArc).getpoids();
 
-       if (tentative < sommets[neighbourIndex].getDistanceÃ laSource()) {
+       if (tentative < sommets[neighbourIndex].getDistanceàlaSource()) {
            sommets[neighbourIndex].setDistanceFromSource(tentative);
            sommets[neighbourIndex].setPredecessor(nextNode);
          }
@@ -85,7 +86,7 @@ public void calculateShortestDistances(String a, String b,int k,int l) {
    }
   
    // all neighbours checked so node visited
-   sommets[nextNode].setVisitÃ©(true);
+   sommets[nextNode].setVisité(true);
    
    // next node must be with shortest distance
    nextNode = getSommetShortestDistanced();
@@ -100,9 +101,9 @@ private int getSommetShortestDistanced() {
  int storedDist = Integer.MAX_VALUE;
 
  for (int i = 0; i < this.sommets.length; i++) {
-   int currentDist = this.sommets[i].getDistanceÃ laSource();
+   int currentDist = this.sommets[i].getDistanceàlaSource();
 
-   if (!this.sommets[i].estVisitÃ©() && currentDist < storedDist) {
+   if (!this.sommets[i].estVisité() && currentDist < storedDist) {
      storedDist = currentDist;
      storedNodeIndex = i;
    }
@@ -112,14 +113,14 @@ private int getSommetShortestDistanced() {
 }
 
 // display result
-public void printResult(String dep,String arr,int a) {
+public String printResult(String dep,String arr,int a) {
 
 
 
-   String output = ("Ce trajet entre " + dep + "et " + arr + "dure " + (sommets[StringtoInt(arr)+a].getDistanceÃ laSource()) + " secondes.");
+   String output = ("Ce trajet entre " + dep + "et " + arr + "dure " + (sommets[StringtoInt(arr)+a].getDistanceàlaSource()) + " secondes.");
 
 
- System.out.println(output);
+ return output;
 }
 
 public Sommet[] getSommets() {
@@ -130,12 +131,12 @@ public int getnombreSommets() {
  return nombreSommets;
 }
 
-public ArrÃªte[] getArrÃªte() {
- return this.arrÃªtes;
+public ArrayList<Arrête> getArrête() {
+ return this.arrêtes;
 }
 
-public int getnombreArrÃªtes() {
- return nombreArrÃªtes;
+public int getnombreArrêtes() {
+ return nombreArrêtes;
 }
 public void calculatePath(){
     int nodeNow = eat;
@@ -155,9 +156,9 @@ public ArrayList<Sommet> getPath(){
     return path;
 
 }
-public void donnenom(String[] t) {
-	for (int i=0;i<t.length;i++) {
-		this.sommets[i].nom=t[i];
+public void donnenom(List<String> t) {
+	for (int i=0;i<t.size();i++) {
+		this.sommets[i].nom=t.get(i);
 	}
 	
 }
@@ -188,9 +189,9 @@ public ArrayList<String> transformation() {
 public void retirerligne(int a) {
 	
 	
-	for (int i=0;i<this.arrÃªtes.length;i++) {
-		if (this.sommets[this.arrÃªtes[i].getdestination()].ligne==a || this.sommets[this.arrÃªtes[i].getorigine()].ligne==a ) {
-		  this.arrÃªtes[i].poids=100000;
+	for (int i=0;i<this.arrêtes.size();i++) {
+		if (this.sommets[this.arrêtes.get(i).getdestination()].ligne==a || this.sommets[this.arrêtes.get(i).getorigine()].ligne==a ) {
+		  this.arrêtes.get(i).poids=1000000;
 		}
 		
 	}
@@ -204,11 +205,13 @@ public void retirerligne2(ArrayList<Integer> a) {
 		this.retirerligne(a.get(i));
 	}
 }
+
+
 public void retirerstation(String d) {
 	
-	for (int i=0;i<this.arrÃªtes.length;i++) {
-		if (this.sommets[this.arrÃªtes[i].getdestination()].nom==d || this.sommets[this.arrÃªtes[i].getorigine()].nom==d ) {
-		  this.arrÃªtes[i].poids=1000000;
+	for (int i=0;i<this.arrêtes.size();i++) {
+		if (this.sommets[this.arrêtes.get(i).getdestination()].nom==d || this.sommets[this.arrêtes.get(i).getorigine()].nom==d ) {
+		  this.arrêtes.get(i).poids=1000000;
 		}
 }
 }

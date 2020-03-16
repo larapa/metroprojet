@@ -1,1428 +1,261 @@
+package application;
+	
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
-package projet;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
-public class Main {
+public class Main extends Application  {
+	
+	Button bouton1;
+	Button bouton2;
+	Button bouton3;
+	Stage window;
+    Scene scene;
+    ComboBox<String> comboBox1;
+    ComboBox<String> comboBox2;
+    ComboBox<String> comboBox3;
+	ListView<Integer> listview;
+	public static String afficheChemin(String d�part, String arriv�e,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites) throws IOException {
+		
+		String texte1;
+		String texte2;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		    String départ= "République ";
-	        String arrivée="Bastille ";
-	        int [] LignesInterdites= {8};
-	        ArrayList<Integer> ttr= new ArrayList<Integer>();
-	        for (int i=0;i<LignesInterdites.length;i++) {
-	        	ttr.add(LignesInterdites[i]);
-	        }
-	        String [] StationsInterdites= {"Oberkampf "};
-	        ArrayList<String> ttr2= new ArrayList<String>();
-	        for (int i=0;i<StationsInterdites.length;i++) {
-	        	ttr2.add(StationsInterdites[i]);
-	        }
+		
+		 
+		 ArrayList<Arr�te> arr�tes = new  ArrayList<Arr�te>();
+		 List<String> arr�tesString = Files.readAllLines(Paths.get("C:/fichierstexte/Arr�tes.txt"));
+		 for (String s: arr�tesString) {
+			 String str[] = s.split(" ");
+			 ArrayList<Integer> b = new ArrayList<Integer>();
+				for (String t: str) {
+					int n = Integer.parseInt(t);
+					b.add(n);
+				}
+				arr�tes.add(new Arr�te(b.get(0), b.get(1), b.get(2)));
+		 }
+		 
+	    List<String>nom= Files.readAllLines(Paths.get("C:/fichierstexte/Stations1.txt"));
+	   
+	    int [] lignes = {12,2,9,4,3,2,1,11,3,12,7,10,2,2,4,13,1,5,8,6,11,2,14,6,14,9,6,2,5,5,6,16,8,9,16,8,10,10,3,13,5,16,9,1,7,6,5,10,13,7,1,13,10,8,10,1,2,6,9,7,9,8,6,7,4,4,1,1,11,14,4,7,13,4,10,2,8,1,12,8,12,12,7,6,14,2,2,7,9,8,8,8,16,6,8,4,6,6,6,10,13,6,1,3,9,8,12,8,7,1,9,8,13,13,3,3,15,10,5,1,14,4,5,7,4,5,13,1,6,11,1,13,3,9,5,1,11,13,8,9,5,9,2,5,16,10,11,12,10,7,6,2,7,13,10,6,8,9,8,12,5,7,7,8,7,4,1,8,13,7,16,3,8,1,10,12,14,8,12,7,13,9,13,11,7,8,8,13,13,3,9,12,4,9,12,10,10,9,10,9,8,10,13,9,2,8,12,13,4,6,4,2,1,2,6,9,6,12,12,5,9,10,4,3,7,8,5,1,7,3,6,12,6,15,13,2,6,7,12,2,8,7,5,6,7,13,2,11,16,13,7,3,1,9,7,7,2,8,1,10,7,7,4,3,3,8,7,13,4,9,5,9,13,13,12,1,12,7,11,15,16,7,14,11,2,3,3,6,5,3,11,9,4,6,12,1,8,5,8,9,7,9,2,8,9,3,9,9,12,3,4,11,3,5,8,9,9,9,13,13,15,13,12,4,6,12,13,3,1,5,4,1,9,4,4,8,3,4,12,2,5,7,4,8,9,7,10,12,6,10,3,2,7,12,6,9,1,11,10,13,12,4,2,7,7,7,2,3,12,9,3,8,8,10,5,4};
+	   
+	   
+  
+	    		
+	    //on cr�e le graphe:
+       Graphe g = new Graphe(arr�tes);
+	    
+	    g.donnenom(nom);
+	    g.donneligne(lignes);
+	    //on prend en compte les contraintes
+	    g.retirerligne2(LignesInterdites);
+	    g.retirerstation2(StationsInterdites);
+	  
+	    //calcul du plus court chemin
+	    int w=0;
+	   
+	    int z=0;
+	    int k=0;
+	    int u=100000000;
+	    while (w<g.estmultiligne(d�part)) {
+	    	int y=0;
+	    	while (y<g.estmultiligne(arriv�e)) {
+	    	Graphe e = new Graphe(arr�tes);
+		    
+		    e.donnenom(nom);
+		    e.donneligne(lignes);
+		    e.retirerligne2(LignesInterdites);
+		    e.retirerstation2(StationsInterdites);
+	    	e.calculateShortestDistances(d�part,arriv�e,w,y);
+	    	int m=e.sommets[e.StringtoInt(arriv�e) + y].getDistance�laSource();
+	    	
+	    	if (m<u) {
+	    		u=m;
+	    		k=w;
+	    		z=y;
+	    	}
+	    	y=y+1;
+	    }
+	    w=w+1;
+	    }
+	    
+	    g.calculateShortestDistances(d�part,arriv�e,k,z);
+	 
+	    g.calculatePath();
 
-			
-				 Arrête [] arrêtes= {
-				 new Arrête(0, 238, 41 ),
-				 new Arrête(0, 159, 46 ),
-				 new Arrête(1, 12, 36 ),
-				 new Arrête(1, 235, 44 ),
-				 new Arrête(2, 110, 69 ),
-				 new Arrête(2, 139, 50 ),
-				 new Arrête(3, 262, 33 ),
-				 new Arrête(3, 210, 41 ),
-				 new Arrête(4, 171, 43 ),
-				 new Arrête(4, 251, 35 ),
-				 new Arrête(5, 13, 67 ),
-				 new Arrête(5, 239, 54 ),
-				 new Arrête(6, 55, 56 ),
-				 new Arrête(6, 258, 46 ),
-				 new Arrête(7, 290, 39 ),
-				 new Arrête(7, 311, 79 ),
-				 new Arrête(8, 350, 38 ),
-				 new Arrête(8, 309, 58 ),
-				 new Arrête(9, 338, 28 ),
-				 new Arrête(9, 78, 62 ),
-				 new Arrête(10, 277, 42 ),
-				 new Arrête(10, 108, 36 ),
-				 new Arrête(11, 154, 32 ),
-				 new Arrête(11, 54, 41 ),
-				 new Arrête(12, 213, 42 ),
-				 new Arrête(12, 1, 36 ),
-				 new Arrête(13, 151, 57 ),
-				 new Arrête(13, 5, 67 ),
-				 new Arrête(14, 124, 46 ),
-				 new Arrête(14, 64, 28 ),
-				 new Arrête(15, 318, 37 ),
-				 new Arrête(15, 319, 73 ),
-				 new Arrête(16, 119, 98 ),
-				 new Arrête(16, 331, 62 ),
-				 new Arrête(17, 288, 89 ),
-				 new Arrête(17, 40, 41 ),
-				 new Arrête(18, 163, 32 ),
-				 new Arrête(18, 61, 56 ),
-				 new Arrête(19, 236, 31 ),
-				 new Arrête(19, 93, 33 ),
-				 new Arrête(20, 129, 48 ),
-				 new Arrête(20, 283, 38 ),
-				 new Arrête(21, 86, 46 ),
-				 new Arrête(21, 75, 51 ),
-				 new Arrête(22, 84, 39 ),
-				 new Arrête(22, 120, 81 ),
-				 new Arrête(23, 97, 35 ),
-				 new Arrête(23, 287, 57 ),
-				 new Arrête(24, 84, 51 ),
-				 new Arrête(25, 193, 42 ),
-				 new Arrête(25, 253, 35 ),
-				 new Arrête(26, 98, 31 ),
-				 new Arrête(26, 230, 64 ),
-				 new Arrête(27, 239, 64 ),
-				 new Arrête(27, 246, 59 ),
-				 new Arrête(28, 29, 79 ),
-				 new Arrête(29, 374, 46 ),
-				 new Arrête(374, 29, 46 ),
-				 new Arrête(29, 28, 79 ),
-				 new Arrête(30, 354, 24 ),
-				 new Arrête(30, 150, 44 ),
-				 new Arrête(31, 41, 28 ),
-				 new Arrête(31, 144, 36 ),
-				 new Arrête(32, 343, 54 ),
-				 new Arrête(32, 303, 41 ),
-				 new Arrête(33, 344, 52 ),
-				 new Arrête(33, 304, 41 ),
-				 new Arrête(34, 248, 36 ),
-				 new Arrête(34, 41, 57 ),
-				 new Arrête(35, 111, 34 ),
-				 new Arrête(35, 172, 40 ),
-				 new Arrête(36, 198, 105 ),
-				 new Arrête(36, 37, 39 ),
-				 new Arrête(37, 36, 39 ),
-				 new Arrête(38, 336, 35 ),
-				 new Arrête(38, 289, 38 ),
-				 new Arrête(39, 153, 38 ),
-				 new Arrête(39, 267, 46 ),
-				 new Arrête(40, 17, 41 ),
-				 new Arrête(40, 297, 37 ),
-				 new Arrête(41, 34, 57 ),
-				 new Arrête(41, 31, 28 ),
-				 new Arrête(42, 190, 42 ),
-				 new Arrête(42, 215, 35 ),
-				 new Arrête(43, 66, 41 ),
-				 new Arrête(43, 328, 57 ),
-				 new Arrête(44, 162, 54 ),
-				 new Arrête(44, 250, 64 ),
-				 new Arrête(45, 348, 43 ),
-				 new Arrête(45, 155, 35 ),
-				 new Arrête(46, 242, 63 ),
-				 new Arrête(46, 329, 46 ),
-				 new Arrête(47, 148, 46 ),
-				 new Arrête(47, 195, 41 ),
-				 new Arrête(48, 182, 66 ),
-				 new Arrête(48, 318, 60 ),
-				 new Arrête(49, 164, 42 ),
-				 new Arrête(49, 241, 40 ),
-				 new Arrête(50, 77, 54 ),
-				 new Arrête(50, 109, 62 ),
-				 new Arrête(51, 137, 62 ),
-				 new Arrête(51, 202, 69 ),
-				 new Arrête(52, 201, 20 ),
-				 new Arrête(53, 372, 47 ),
-				 new Arrête(53, 167, 33 ),
-				 new Arrête(54, 11, 41 ),
-				 new Arrête(54, 145, 51 ),
-				 new Arrête(55, 127, 60 ),
-				 new Arrête(55, 6, 56 ),
-				 new Arrête(56, 351, 59 ),
-				 new Arrête(56, 362, 75 ),
-				 new Arrête(57, 150, 35 ),
-				 new Arrête(58, 307, 31 ),
-				 new Arrête(58, 369, 31 ),
-				 new Arrête(59, 224, 72 ),
-				 new Arrête(59, 162, 53 ),
-				 new Arrête(60, 299, 63 ),
-				 new Arrête(60, 133, 45 ),
-				 new Arrête(61, 18, 56 ),
-				
-				 new Arrête(61, 335, 28 ),
-				 new Arrête(62, 287, 53 ),
-				 new Arrête(62, 216, 48 ),
-				 new Arrête(63, 123, 44 ),
-				 new Arrête(63, 169, 57 ),
-				 new Arrête(64, 14, 28 ),
-				 new Arrête(64, 192, 57 ),
-				 new Arrête(65, 342, 41 ),
-				 new Arrête(65, 121, 57 ),
-				 new Arrête(66, 43, 41 ),
-				 new Arrête(67, 135, 87 ),
-				 new Arrête(67, 173, 51 ),
-				 new Arrête(68, 136, 85 ),
-				 new Arrête(69, 120, 287 ),
-				 new Arrête(69, 281, 131 ),
-				 new Arrête(70, 73, 45 ),
-				 new Arrête(70, 165, 66 ),
-				 new Arrête(71, 254, 73 ),
-				 new Arrête(71, 255, 37 ),
-				 new Arrête(72, 188, 52 ),
-				 new Arrête(73, 330, 46 ),
-				 new Arrête(73, 70, 45 ),
-				 new Arrête(74, 195, 44 ),
-				 new Arrête(74, 221, 52 ),
-				 new Arrête(75, 21, 51 ),
-				 new Arrête(75, 142, 93 ),
-				 new Arrête(76, 156, 59 ),
-				 new Arrête(76, 111, 30 ),
-				 new Arrête(77, 356, 57 ),
-				 new Arrête(77, 50, 54 ),
-				 new Arrête(78, 9, 62 ),
-				 new Arrête(78, 175, 41 ),
-				 new Arrête(79, 177, 41 ),
-				 new Arrête(79, 138, 71 ),
-				 new Arrête(80, 274, 41 ),
-				 new Arrête(80, 360, 49 ),
-				 new Arrête(81, 178, 43 ),
-				 new Arrête(81, 274, 43 ),
-				 new Arrête(82, 87, 32 ),
-				 new Arrête(82, 277, 47 ),
-				 new Arrête(83, 243, 36 ),
-				 new Arrête(83, 128, 49 ),
-				 new Arrête(84, 24, 51 ),
-				 new Arrête(84, 22, 39 ),
-				 new Arrête(85, 204, 47 ),
-				 new Arrête(85, 351, 46 ),
-				 new Arrête(86, 211, 37 ),
-				 new Arrête(86, 21, 46 ),
-				 new Arrête(87, 300, 43 ),
-				 new Arrête(87, 82, 32 ),
-				 new Arrête(88, 181, 44 ),
-				 new Arrête(88, 301, 47 ),
-				 new Arrête(89, 90, 29 ),
-				 new Arrête(90, 89, 29 ),
-				 new Arrête(90, 91, 26 ),
-				 new Arrête(91, 90, 26 ),
-				 new Arrête(91, 185, 27 ),
-				 new Arrête(92, 34, 37 ),
-				 new Arrête(93, 19, 33 ),
-				 new Arrête(93, 97, 45 ),
-				 new Arrête(94, 200, 27 ),
-				 new Arrête(94, 205, 39 ),
-				 new Arrête(95, 210, 48 ),
-				 new Arrête(95, 292, 37 ),
-				 new Arrête(96, 324, 52 ),
-				 new Arrête(96, 293, 42 ),
-				 new Arrête(97, 93, 45 ),
-				 new Arrête(97, 23, 35 ),
-				 new Arrête(98, 155, 69 ),
-				 new Arrête(98, 26, 31 ),
-				 new Arrête(99, 358, 31 ),
-				 new Arrête(99, 349, 54 ),
-				 new Arrête(100, 207, 113 ),
-				 new Arrête(100, 321, 59 ),
-				 new Arrête(101, 293, 43 ),
-				 new Arrête(101, 209, 36 ),
-				 new Arrête(102, 252, 35 ),
-				 new Arrête(102, 130, 37 ),
-				 new Arrête(103, 327, 44 ),
-				 new Arrête(103, 367, 30 ),
-				 new Arrête(104, 199, 62 ),
-				 new Arrête(104, 271, 40 ),
-				 new Arrête(105, 296, 42 ),
-				 new Arrête(105, 163, 47 ),
-				 new Arrête(106, 231, 29 ),
-				 new Arrête(106, 206, 36 ),
-				 new Arrête(107, 335, 49 ),
-				 new Arrête(107, 314, 49 ),
-				 new Arrête(108, 10, 36 ),
-				 new Arrête(108, 152, 29 ),
-				 new Arrête(109, 50, 62 ),
-				 new Arrête(109, 127, 59 ),
-				 new Arrête(110, 332, 37 ),
-				 new Arrête(110, 2, 69 ),
-				 new Arrête(111, 76, 30 ),
-				 new Arrête(111, 35, 34 ),
-				 new Arrête(112, 180, 71 ),
-				 new Arrête(113, 234, 36 ),
-				 new Arrête(113, 207, 47 ),
-				 new Arrête(114, 263, 72 ),
-				 new Arrête(115, 263, 39 ),
-				 new Arrête(115, 285, 70 ),
-				 new Arrête(116, 233, 50 ),
-				 new Arrête(117, 148, 59 ),
-				 new Arrête(118, 329, 60 ),
-				 new Arrête(118, 288, 30 ),
-				 new Arrête(119, 295, 41 ),
-				 new Arrête(119, 16, 98 ),
-				 new Arrête(120, 22, 81 ),
-				 new Arrête(120, 69, 287 ),
-				 new Arrête(121, 65, 57 ),
-				 new Arrête(121, 124, 67 ),
-				 new Arrête(122, 140, 103 ),
-				 new Arrête(122, 125, 59 ),
-				 new Arrête(123, 250, 51 ),
-				 new Arrête(123, 63, 44 ),
-				 new Arrête(124, 121, 67 ),
-				 new Arrête(124, 14, 46 ),
-				 new Arrête(125, 122, 59 ),
-				 new Arrête(125, 340, 107 ),
-				 new Arrête(126, 272, 37 ),
-				 new Arrête(126, 182, 42 ),
-				 new Arrête(127, 109, 59 ),
-				 new Arrête(127, 55, 60 ),
-				 new Arrête(128, 83, 49 ),
-				 new Arrête(128, 324, 42 ),
-				 new Arrête(129, 311, 49 ),
-				 new Arrête(129, 20, 48 ),
-				 new Arrête(130, 102, 37 ),
-				 new Arrête(131, 153, 72 ),
-				 new Arrête(131, 272, 63 ),
-				 new Arrête(132, 223, 68 ),
-				 new Arrête(132, 327, 40 ),
-				 new Arrête(133, 60, 45 ),
-				 new Arrête(133, 317, 49 ),
-				 new Arrête(134, 270, 47 ),
-				 new Arrête(134, 374, 53 ),
-				 new Arrête(135, 331, 65 ),
-				 new Arrête(135, 67, 87 ),
-				 new Arrête(136, 68, 85 ),
-				 new Arrête(136, 290, 73 ),
-				 new Arrête(137, 359, 54 ),
-				 new Arrête(137, 51, 62 ),
-				 new Arrête(138, 79, 71 ),
-				 new Arrête(138, 158, 57 ),
-				 new Arrête(139, 2, 50 ),
-				 new Arrête(139, 355, 46 ),
-				 new Arrête(140, 313, 47 ),
-				 new Arrête(140, 122, 103 ),
-				 new Arrête(141, 291, 37 ),
-				 new Arrête(141, 197, 49 ),
-				 new Arrête(142, 75, 93 ),
-				 new Arrête(142, 339, 27 ),
-				 new Arrête(143, 340, 29 ),
-				 new Arrête(143, 160, 44 ),
-				 new Arrête(144, 31, 36 ),
-				 new Arrête(144, 170, 46 ),
-				 new Arrête(145, 54, 51 ),
-				 new Arrête(145, 373, 55 ),
-				 new Arrête(146, 283, 33 ),
-				 new Arrête(146, 247, 50 ),
-				 new Arrête(147, 159, 44 ),
-				 new Arrête(147, 191, 49 ),
-				 new Arrête(148, 117, 59 ),
-				 new Arrête(148, 47, 46 ),
-				 new Arrête(149, 241, 57 ),
-				 new Arrête(149, 345, 79 ),
-				 new Arrête(150, 30, 44 ),
-				 new Arrête(150, 57, 35 ),
-				 new Arrête(151, 339, 93 ),
-				 new Arrête(151, 13, 57 ),
-				 new Arrête(152, 108, 29 ),
-				 new Arrête(153, 245, 64 ),
-				 new Arrête(153, 131, 72 ),
-				 new Arrête(153, 39, 38 ),
-				 new Arrête(154, 349, 33 ),
-				 new Arrête(154, 11, 32 ),
-				 new Arrête(155, 45, 35 ),
-				 new Arrête(155, 98, 69 ),
-				 new Arrête(156, 371, 46 ),
-				 new Arrête(156, 76, 59 ),
-				 new Arrête(157, 306, 36 ),
-				 new Arrête(157, 291, 49 ),
-				 new Arrête(158, 138, 57 ),
-				 new Arrête(158, 371, 66 ),
-				 new Arrête(159, 0, 46 ),
-				 new Arrête(159, 147, 44 ),
-				 new Arrête(160, 143, 44 ),
-				 new Arrête(160, 226, 40 ),
-				 new Arrête(161, 364, 28 ),
-				 new Arrête(161, 184, 39 ),
-				 new Arrête(162, 59, 53 ),
-				 new Arrête(162, 44, 54 ),
-				 new Arrête(163, 105, 47 ),
-				 new Arrête(163, 18, 32 ),
-				 new Arrête(164, 244, 60 ),
-				 new Arrête(164, 49, 42 ),
-				 new Arrête(165, 70, 66 ),
-				 new Arrête(165, 375, 33 ),
-				 new Arrête(166, 258, 38 ),
-				 new Arrête(166, 252, 37 ),
-				 new Arrête(167, 53, 33 ),
-				 new Arrête(167, 265, 31 ),
-				 new Arrête(168, 326, 49 ),
-				 new Arrête(168, 245, 28 ),
-				 new Arrête(169, 63, 57 ),
-				 new Arrête(169, 341, 54 ),
-				 new Arrête(170, 144, 46 ),
-				 new Arrête(171, 264, 49 ),
-				 new Arrête(171, 4, 43 ),
-				 new Arrête(172, 35, 40 ),
-				 new Arrête(172, 240, 35 ),
-				 new Arrête(173, 67, 51 ),
-				 new Arrête(173, 227, 34 ),
-				 new Arrête(174, 221, 31 ),
-				 new Arrête(174, 346, 72 ),
-				 new Arrête(175, 78, 41 ),
-				 new Arrête(175, 325, 144 ),
-				 new Arrête(176, 281, 71 ),
-				 new Arrête(177, 225, 88 ),
-				 new Arrête(177, 79, 41 ),
-				 new Arrête(178, 81, 43 ),
-				 new Arrête(179, 237, 37 ),
-				 new Arrête(180, 267, 91 ),
-				 new Arrête(180, 112, 71 ),
-				 new Arrête(181, 88, 44 ),
-				 new Arrête(182, 126, 42 ),
-				 new Arrête(182, 48, 66 ),
-				 new Arrête(183, 278, 51 ),
-				 new Arrête(184, 260, 31 ),
-				 new Arrête(184, 161, 39 ),
-				 new Arrête(184, 352, 36 ),
-				 new Arrête(185, 91, 27 ),
-				 new Arrête(185, 186, 26 ),
-				 new Arrête(186, 185, 26 ),
-				 new Arrête(186, 372, 33 ),
-				 new Arrête(187, 188, 34 ),
-				 new Arrête(187, 273, 46 ),
-				 new Arrête(188, 72, 52 ),
-				 new Arrête(188, 187, 34 ),
-				 new Arrête(189, 367, 49 ),
-				 new Arrête(189, 370, 35 ),
-				 new Arrête(190, 269, 27 ),
-				 new Arrête(190, 42, 42 ),
-				 new Arrête(191, 147, 49 ),
-				 new Arrête(191, 194, 67 ),
-				 new Arrête(192, 64, 57 ),
-				 new Arrête(192, 337, 36 ),
-				 new Arrête(193, 271, 38 ),
-				 new Arrête(193, 25, 42 ),
-				 new Arrête(194, 191, 67 ),
-				 new Arrête(194, 276, 67 ),
-				 new Arrête(195, 47, 41 ),
-				 new Arrête(195, 74, 44 ),
-				 new Arrête(196, 259, 47 ),
-				 new Arrête(197, 141, 49 ),
-				 new Arrête(197, 199, 28 ),
-				 new Arrête(198, 52, 42 ),
-				 new Arrête(199, 197, 28 ),
-				 new Arrête(199, 104, 62 ),
-				 new Arrête(200, 257, 51 ),
-				 new Arrête(200, 94, 27 ),
-				 new Arrête(201, 145, 46 ),
-				 new Arrête(202, 51, 69 ),
-				 new Arrête(202, 326, 112 ),
-				 new Arrête(203, 317, 53 ),
-				 new Arrête(203, 332, 40 ),
-				 new Arrête(204, 366, 51 ),
-				 new Arrête(204, 85, 47 ),
-				 new Arrête(205, 94, 39 ),
-				 new Arrête(205, 296, 38 ),
-				 new Arrête(206, 106, 36 ),
-				 new Arrête(206, 218, 45 ),
-				 new Arrête(207, 113, 47 ),
-				 new Arrête(207, 100, 113 ),
-				 new Arrête(208, 361, 42 ),
-				 new Arrête(208, 333, 48 ),
-				 new Arrête(209, 101, 36 ),
-				 new Arrête(209, 232, 54 ),
-				 new Arrête(210, 3, 41 ),
-				 new Arrête(210, 95, 48 ),
-				 new Arrête(211, 284, 49 ),
-				 new Arrête(211, 86, 37 ),
-				 new Arrête(212, 275, 86 ),
-				 new Arrête(212, 295, 64 ),
-				 new Arrête(213, 12, 42 ),
-				 new Arrête(214, 236, 42 ),
-				 new Arrête(215, 42, 35 ),
-				 new Arrête(215, 307, 60 ),
-				 new Arrête(216, 62, 48 ),
-				 new Arrête(216, 243, 55 ),
-				 new Arrête(217, 353, 29 ),
-				 new Arrête(217, 322, 37 ),
-				 new Arrête(218, 206, 45 ),
-				 new Arrête(218, 294, 38 ),
-				 new Arrête(219, 297, 50 ),
-				 new Arrête(219, 313, 81 ),
-				 new Arrête(220, 316, 35 ),
-				 new Arrête(220, 315, 80 ),
-				 new Arrête(221, 74, 52 ),
-				 new Arrête(221, 174, 31 ),
-				 new Arrête(222, 323, 42 ),
-				 new Arrête(222, 330, 31 ),
-				 new Arrête(223, 289, 43 ),
-				 new Arrête(223, 132, 68 ),
-				 new Arrête(224, 282, 80 ),
-				 new Arrête(224, 59, 72 ),
-				 new Arrête(225, 298, 75 ),
-				 new Arrête(225, 177, 88 ),
-				 new Arrête(226, 160, 40 ),
-				 new Arrête(226, 270, 39 ),
-				 new Arrête(227, 173, 34 ),
-				 new Arrête(227, 356, 38 ),
-				 new Arrête(228, 255, 53 ),
-				 new Arrête(228, 282, 49 ),
-				 new Arrête(229, 305, 43 ),
-				 new Arrête(229, 312, 64 ),
-				 new Arrête(230, 26, 64 ),
-				 new Arrête(230, 354, 62 ),
-				 new Arrête(231, 368, 40 ),
-				 new Arrête(231, 106, 29 ),
-				 new Arrête(232, 209, 54 ),
-				 new Arrête(232, 348, 46 ),
-				 new Arrête(233, 320, 33 ),
-				 new Arrête(233, 116, 50 ),
-				 new Arrête(234, 249, 38 ),
-				 new Arrête(234, 113, 36 ),
-				 new Arrête(235, 1, 44 ),
-				 new Arrête(235, 284, 44 ),
-				 new Arrête(236, 214, 42 ),
-				 new Arrête(236, 19, 31 ),
-				 new Arrête(237, 179, 37 ),
-				 new Arrête(237, 261, 37 ),
-				 new Arrête(238, 322, 27 ),
-				 new Arrête(238, 0, 41 ),
-				 new Arrête(239, 5, 54 ),
-				 new Arrête(239, 27, 64 ),
-				 new Arrête(240, 172, 35 ),
-				 new Arrête(241, 49, 40 ),
-				 new Arrête(241, 149, 57 ),
-				 new Arrête(242, 46, 63 ),
-				 new Arrête(243, 216, 55 ),
-				 new Arrête(243, 83, 36 ),
-				 new Arrête(244, 352, 37 ),
-				 new Arrête(244, 164, 60 ),
-				 new Arrête(245, 168, 28 ),
-				 new Arrête(245, 153, 64 ),
-				 new Arrête(246, 27, 59 ),
-				 new Arrête(246, 302, 37 ),
-				 new Arrête(247, 146, 50 ),
-				 new Arrête(247, 357, 23 ),
-				 new Arrête(248, 280, 57 ),
-				 new Arrête(249, 273, 35 ),
-				 new Arrête(249, 234, 38 ),
-				 new Arrête(250, 44, 64 ),
-				 new Arrête(250, 123, 51 ),
-				 new Arrête(251, 4, 35 ),
-				 new Arrête(252, 166, 37 ),
-				 new Arrête(252, 102, 35 ),
-				 new Arrête(253, 25, 35 ),
-				 new Arrête(254, 345, 75 ),
-				 new Arrête(254, 71, 73 ),
-				 new Arrête(255, 71, 37 ),
-				 new Arrête(255, 228, 53 ),
-				 new Arrête(256, 362, 37 ),
-				 new Arrête(257, 265, 26 ),
-				 new Arrête(257, 200, 51 ),
-				 new Arrête(258, 6, 46 ),
-				 new Arrête(258, 166, 38 ),
-				 new Arrête(259, 198, 47 ),
-				 new Arrête(259, 36, 84 ),
-				 new Arrête(260, 266, 37 ),
-				 new Arrête(260, 184, 31 ),
-				 new Arrête(261, 237, 37 ),
-				 new Arrête(261, 266, 46 ),
-				 new Arrête(262, 3, 33 ),
-				 new Arrête(263, 114, 72 ),
-				 new Arrête(263, 115, 39 ),
-				 new Arrête(264, 286, 41 ),
-				 new Arrête(264, 171, 49 ),
-				 new Arrête(265, 167, 31 ),
-				 new Arrête(265, 257, 26 ),
-				 new Arrête(266, 261, 46 ),
-				 new Arrête(266, 260, 37 ),
-				 new Arrête(267, 39, 46 ),
-				 new Arrête(267, 180, 91 ),
-				 new Arrête(268, 337, 39 ),
-				 new Arrête(269, 301, 35 ),
-				 new Arrête(269, 190, 27 ),
-				 new Arrête(270, 226, 39 ),
-				 new Arrête(270, 134, 47 ),
-				 new Arrête(271, 104, 40 ),
-				 new Arrête(271, 193, 38 ),
-				 new Arrête(272, 131, 63 ),
-				 new Arrête(272, 126, 37 ),
-				 new Arrête(273, 187, 46 ),
-				 new Arrête(273, 249, 35 ),
-				 new Arrête(274, 81, 43 ),
-				 new Arrête(274, 80, 41 ),
-				 new Arrête(275, 328, 41 ),
-				 new Arrête(275, 212, 86 ),
-				 new Arrête(276, 194, 67 ),
-				 new Arrête(277, 82, 47 ),
-				 new Arrête(277, 10, 42 ),
-				 new Arrête(278, 357, 59 ),
-				 new Arrête(278, 183, 51 ),
-				 new Arrête(279, 320, 37 ),
-				 new Arrête(280, 92, 43 ),
-				 new Arrête(281, 69, 131 ),
-				 new Arrête(281, 176, 71 ),
-				 new Arrête(282, 228, 49 ),
-				 new Arrête(282, 224, 80 ),
-				 new Arrête(283, 20, 38 ),
-				 new Arrête(283, 146, 33 ),
-				 new Arrête(284, 235, 44 ),
-				 new Arrête(284, 211, 49 ),
-				 new Arrête(285, 115, 70 ),
-				 new Arrête(285, 305, 61 ),
-				 new Arrête(286, 370, 35 ),
-				 new Arrête(286, 264, 41 ),
-				 new Arrête(287, 23, 57 ),
-				 new Arrête(287, 62, 53 ),
-				 new Arrête(288, 118, 30 ),
-				 new Arrête(288, 17, 89 ),
-				 new Arrête(289, 38, 38 ),
-				 new Arrête(289, 223, 43 ),
-				 new Arrête(290, 136, 73 ),
-				 new Arrête(290, 7, 39 ),
-				 new Arrête(291, 157, 49 ),
-				 new Arrête(291, 141, 37 ),
-				 new Arrête(292, 95, 37 ),
-				 new Arrête(292, 361, 38 ),
-				 new Arrête(293, 96, 42 ),
-				 new Arrête(293, 101, 43 ),
-				 new Arrête(294, 218, 38 ),
-				 new Arrête(294, 347, 46 ),
-				 new Arrête(295, 212, 64 ),
-				 new Arrête(295, 119, 41 ),
-				 new Arrête(296, 205, 38 ),
-				 new Arrête(296, 105, 42 ),
-				 new Arrête(297, 40, 37 ),
-				 new Arrête(297, 219, 50 ),
-				 new Arrête(298, 303, 46 ),
-				 new Arrête(298, 225, 75 ),
-				 new Arrête(299, 304, 48 ),
-				 new Arrête(299, 60, 63 ),
-				 new Arrête(300, 341, 46 ),
-				 new Arrête(300, 87, 43 ),
-				 new Arrête(301, 88, 47 ),
-				 new Arrête(301, 269, 35 ),
-				 new Arrête(302, 246, 37 ),
-				 new Arrête(302, 366, 53 ),
-				 new Arrête(303, 32, 41 ),
-				 new Arrête(303, 298, 46 ),
-				 new Arrête(304, 33, 41 ),
-				 new Arrête(304, 299, 48 ),
-				 new Arrête(305, 285, 61 ),
-				 new Arrête(305, 229, 43 ),
-				 new Arrête(306, 355, 33 ),
-				 new Arrête(306, 157, 36 ),
-				 new Arrête(307, 215, 60 ),
-				 new Arrête(307, 58, 31 ),
-				 new Arrête(308, 347, 29 ),
-				 new Arrête(308, 338, 33 ),
-				 new Arrête(309, 8, 58 ),
-				 new Arrête(309, 336, 65 ),
-				 new Arrête(310, 375, 28 ),
-				 new Arrête(310, 342, 67 ),
-				 new Arrête(311, 7, 79 ),
-				 new Arrête(311, 129, 49 ),
-				 new Arrête(312, 229, 64 ),
-				 new Arrête(312, 350, 37 ),
-				 new Arrête(313, 219, 81 ),
-				 new Arrête(313, 140, 47 ),
-				 new Arrête(314, 107, 49 ),
-				 new Arrête(314, 343, 98 ),
-				 new Arrête(315, 220, 80 ),
-				 new Arrête(315, 344, 107 ),
-				 new Arrête(316, 369, 27 ),
-				 new Arrête(316, 220, 35 ),
-				 new Arrête(317, 133, 49 ),
-				 new Arrête(317, 203, 53 ),
-				 new Arrête(318, 48, 60 ),
-				 new Arrête(318, 15, 37 ),
-				 new Arrête(319, 15, 73 ),
-				 new Arrête(320, 279, 37 ),
-				 new Arrête(320, 233, 33 ),
-				 new Arrête(321, 100, 59 ),
-				 new Arrête(321, 359, 23 ),
-				 new Arrête(322, 217, 37 ),
-				 new Arrête(322, 238, 27 ),
-				 new Arrête(323, 334, 47 ),
-				 new Arrête(323, 222, 42 ),
-				 new Arrête(324, 128, 42 ),
-				 new Arrête(324, 96, 52 ),
-				 new Arrête(325, 175, 144 ),
-				 new Arrête(325, 353, 69 ),
-				 new Arrête(326, 202, 112 ),
-				 new Arrête(326, 168, 49 ),
-				 new Arrête(327, 132, 40 ),
-				 new Arrête(327, 103, 44 ),
-				 new Arrête(328, 43, 57 ),
-				 new Arrête(328, 275, 41 ),
-				 new Arrête(329, 46, 46 ),
-				 new Arrête(329, 118, 60 ),
-				 new Arrête(330, 222, 31 ),
-				 new Arrête(330, 73, 46 ),
-				 new Arrête(331, 16, 62 ),
-				 new Arrête(331, 135, 65 ),
-				 new Arrête(332, 203, 40 ),
-				 new Arrête(332, 110, 37 ),
-				 new Arrête(333, 208, 48 ),
-				 new Arrête(333, 334, 32 ),
-				 new Arrête(334, 333, 32 ),
-				 new Arrête(334, 323, 47 ),
-				 new Arrête(335, 61, 28 ),
-				 new Arrête(335, 107, 49 ),
-				 new Arrête(336, 309, 65 ),
-				 new Arrête(336, 38, 35 ),
-				 new Arrête(337, 192, 36 ),
-				 new Arrête(337, 268, 39 ),
-				 new Arrête(338, 308, 33 ),
-				 new Arrête(338, 9, 28 ),
-				 new Arrête(339, 142, 27 ),
-				 new Arrête(339, 151, 93 ),
-				 new Arrête(340, 125, 107 ),
-				 new Arrête(340, 143, 29 ),
-				 new Arrête(341, 169, 54 ),
-				 new Arrête(341, 300, 46 ),
-				 new Arrête(342, 310, 67 ),
-				 new Arrête(342, 65, 41 ),
-				 new Arrête(343, 314, 98 ),
-				 new Arrête(343, 32, 54 ),
-				 new Arrête(344, 315, 107 ),
-				 new Arrête(344, 33, 52 ),
-				 new Arrête(345, 149, 79 ),
-				 new Arrête(345, 254, 75 ),
-				 new Arrête(346, 174, 72 ),
-				 new Arrête(346, 358, 33 ),
-				 new Arrête(347, 294, 46 ),
-				 new Arrête(347, 308, 29 ),
-				 new Arrête(348, 232, 46 ),
-				 new Arrête(348, 45, 43 ),
-				 new Arrête(349, 99, 54 ),
-				 new Arrête(349, 154, 33 ),
-				 new Arrête(350, 312, 37 ),
-				 new Arrête(350, 8, 38 ),
-				 new Arrête(351, 85, 46 ),
-				 new Arrête(351, 56, 59 ),
-				 new Arrête(352, 184, 36 ),
-				 new Arrête(352, 244, 37 ),
-				 new Arrête(353, 325, 69 ),
-				 new Arrête(353, 217, 29 ),
-				 new Arrête(354, 230, 62 ),
-				 new Arrête(354, 30, 24 ),
-				 new Arrête(355, 139, 46 ),
-				 new Arrête(355, 306, 33 ),
-				 new Arrête(356, 227, 38 ),
-				 new Arrête(356, 77, 57 ),
-				 new Arrête(357, 247, 23 ),
-				 new Arrête(357, 278, 59 ),
-				 new Arrête(358, 346, 33 ),
-				 new Arrête(358, 99, 31 ),
-				 new Arrête(359, 321, 23 ),
-				 new Arrête(359, 137, 54 ),
-				 new Arrête(360, 80, 49 ),
-				 new Arrête(360, 368, 47 ),
-				 new Arrête(361, 292, 38 ),
-				 new Arrête(361, 208, 42 ),
-				 new Arrête(362, 56, 75 ),
-				 new Arrête(362, 256, 37 ),
-				 new Arrête(363, 365, 28 ),
-				 new Arrête(364, 365, 28 ),
-				 new Arrête(364, 161, 28 ),
-				 new Arrête(365, 363, 28 ),
-				 new Arrête(365, 364, 28 ),
-				 new Arrête(366, 302, 53 ),
-				 new Arrête(366, 204, 51 ),
-				 new Arrête(367, 103, 30 ),
-				 new Arrête(367, 189, 49 ),
-				 new Arrête(368, 360, 47 ),
-				 new Arrête(368, 231, 40 ),
-				 new Arrête(369, 58, 31 ),
-				 new Arrête(369, 316, 27 ),
-				 new Arrête(370, 189, 35 ),
-				 new Arrête(370, 286, 35 ),
-				 new Arrête(371, 158, 66 ),
-				 new Arrête(371, 156, 46 ),
-				 new Arrête(372, 186, 33 ),
-				 new Arrête(372, 53, 47 ),
-				 new Arrête(373, 196, 37 ),
-				 new Arrête(374, 134, 53 ),
-				 new Arrête(375, 165, 33 ),
-				 new Arrête(375, 310, 28 ),
-				 new Arrête(7, 8, 120 ),
-				 new Arrête(8, 7, 120 ),
-				 new Arrête(13, 14, 120 ),
-				 new Arrête(14, 13, 120 ),
-				 new Arrête(16, 18, 120 ),
-				 new Arrête(16, 17, 120 ),
-				 new Arrête(17, 18, 120 ),
-				 new Arrête(17, 16, 120 ),
-				 new Arrête(18, 16, 120 ),
-				 new Arrête(18, 17, 120 ),
-				 new Arrête(20, 21, 120 ),
-				 new Arrête(21, 20, 120 ),
-				 new Arrête(22, 23, 120 ),
-				 new Arrête(23, 22, 120 ),
-				 new Arrête(32, 33, 120 ),
-				 new Arrête(33, 32, 120 ),
-				 new Arrête(50, 51, 120 ),
-				 new Arrête(51, 50, 120 ),
-				 new Arrête(55, 57, 120 ),
-				 new Arrête(55, 56, 120 ),
-				 new Arrête(56, 57, 120 ),
-				 new Arrête(56, 55, 120 ),
-				 new Arrête(57, 55, 120 ),
-				 new Arrête(57, 56, 120 ),
-				 new Arrête(59, 60, 120 ),
-				 new Arrête(60, 59, 120 ),
-				 new Arrête(67, 69, 120 ),
-				 new Arrête(67, 68, 120 ),
-				 new Arrête(67, 70, 120 ),
-				 new Arrête(67, 71, 120 ),
-				 new Arrête(68, 69, 120 ),
-				 new Arrête(68, 70, 120 ),
-				 new Arrête(68, 71, 120 ),
-				 new Arrête(68, 67, 120 ),
-				 new Arrête(69, 67, 120 ),
-				 new Arrête(69, 70, 120 ),
-				 new Arrête(69, 71, 120 ),
-				 new Arrête(69, 68, 120 ),
-				 new Arrête(70, 71, 120 ),
-				 new Arrête(70, 69, 120 ),
-				 new Arrête(70, 68, 120 ),
-				 new Arrête(70, 67, 120 ),
-				 new Arrête(71, 70, 120 ),
-				 new Arrête(71, 69, 120 ),
-				 new Arrête(71, 68, 120 ),
-				 new Arrête(71, 67, 120 ),
-				 new Arrête(77, 79, 120 ),
-				 new Arrête(77, 78, 120 ),
-				 new Arrête(78, 79, 120 ),
-				 new Arrête(78, 77, 120 ),
-				 new Arrête(79, 77, 120 ),
-				 new Arrête(79, 78, 120 ),
-				 new Arrête(93, 94, 120 ),
-				 new Arrête(94, 93, 120 ),
-				 new Arrête(95, 96, 120 ),
-				 new Arrête(96, 95, 120 ),
-				 new Arrête(99, 100, 120 ),
-				 new Arrête(100, 99, 120 ),
-				 new Arrête(109, 110, 120 ),
-				 new Arrête(110, 109, 120 ),
-				 new Arrête(115, 116, 120 ),
-				 new Arrête(116, 115, 120 ),
-				 new Arrête(117, 118, 120 ),
-				 new Arrête(118, 117, 120 ),
-				 new Arrête(119, 120, 120 ),
-				 new Arrête(120, 119, 120 ),
-				 new Arrête(121, 123, 120 ),
-				 new Arrête(121, 122, 120 ),
-				 new Arrête(122, 123, 120 ),
-				 new Arrête(122, 121, 120 ),
-				 new Arrête(123, 121, 120 ),
-				 new Arrête(123, 122, 120 ),
-				 new Arrête(124, 125, 120 ),
-				 new Arrête(125, 124, 120 ),
-				 new Arrête(132, 133, 120 ),
-				 new Arrête(133, 132, 120 ),
-				 new Arrête(135, 136, 120 ),
-				 new Arrête(136, 135, 120 ),
-				 new Arrête(137, 138, 120 ),
-				 new Arrête(138, 137, 120 ),
-				 new Arrête(142, 144, 120 ),
-				 new Arrête(142, 143, 120 ),
-				 new Arrête(143, 144, 120 ),
-				 new Arrête(143, 142, 120 ),
-				 new Arrête(144, 142, 120 ),
-				 new Arrête(144, 143, 120 ),
-				 new Arrête(148, 149, 120 ),
-				 new Arrête(149, 148, 120 ),
-				 new Arrête(154, 156, 120 ),
-				 new Arrête(154, 155, 120 ),
-				 new Arrête(155, 156, 120 ),
-				 new Arrête(155, 154, 120 ),
-				 new Arrête(156, 154, 120 ),
-				 new Arrête(156, 155, 120 ),
-				 new Arrête(169, 170, 120 ),
-				 new Arrête(170, 169, 120 ),
-				 new Arrête(175, 177, 120 ),
-				 new Arrête(175, 176, 120 ),
-				 new Arrête(176, 177, 120 ),
-				 new Arrête(176, 175, 120 ),
-				 new Arrête(177, 175, 120 ),
-				 new Arrête(177, 176, 120 ),
-				 new Arrête(191, 192, 120 ),
-				 new Arrête(192, 191, 120 ),
-				 new Arrête(196, 197, 120 ),
-				 new Arrête(197, 196, 120 ),
-				 new Arrête(198, 199, 120 ),
-				 new Arrête(199, 198, 120 ),
-				 new Arrête(202, 203, 120 ),
-				 new Arrête(203, 202, 120 ),
-				 new Arrête(206, 208, 120 ),
-				 new Arrête(206, 207, 120 ),
-				 new Arrête(206, 209, 120 ),
-				 new Arrête(207, 208, 120 ),
-				 new Arrête(207, 209, 120 ),
-				 new Arrête(207, 206, 120 ),
-				 new Arrête(208, 206, 120 ),
-				 new Arrête(208, 209, 120 ),
-				 new Arrête(208, 207, 120 ),
-				 new Arrête(209, 208, 120 ),
-				 new Arrête(209, 207, 120 ),
-				 new Arrête(209, 206, 120 ),
-				 new Arrête(212, 214, 120 ),
-				 new Arrête(212, 213, 120 ),
-				 new Arrête(212, 215, 120 ),
-				 new Arrête(213, 214, 120 ),
-				 new Arrête(213, 215, 120 ),
-				 new Arrête(213, 212, 120 ),
-				 new Arrête(214, 212, 120 ),
-				 new Arrête(214, 215, 120 ),
-				 new Arrête(214, 213, 120 ),
-				 new Arrête(215, 214, 120 ),
-				 new Arrête(215, 213, 120 ),
-				 new Arrête(215, 212, 120 ),
-				 new Arrête(219, 220, 120 ),
-				 new Arrête(220, 219, 120 ),
-				 new Arrête(221, 222, 120 ),
-				 new Arrête(222, 221, 120 ),
-				 new Arrête(223, 225, 120 ),
-				 new Arrête(223, 224, 120 ),
-				 new Arrête(224, 225, 120 ),
-				 new Arrête(224, 223, 120 ),
-				 new Arrête(225, 223, 120 ),
-				 new Arrête(225, 224, 120 ),
-				 new Arrête(227, 228, 120 ),
-				 new Arrête(228, 227, 120 ),
-				 new Arrête(231, 232, 120 ),
-				 new Arrête(232, 231, 120 ),
-				 new Arrête(238, 239, 120 ),
-				 new Arrête(239, 238, 120 ),
-				 new Arrête(242, 244, 120 ),
-				 new Arrête(242, 243, 120 ),
-				 new Arrête(243, 244, 120 ),
-				 new Arrête(243, 242, 120 ),
-				 new Arrête(244, 242, 120 ),
-				 new Arrête(244, 243, 120 ),
-				 new Arrête(245, 246, 120 ),
-				 new Arrête(246, 245, 120 ),
-				 new Arrête(247, 248, 120 ),
-				 new Arrête(248, 247, 120 ),
-				 new Arrête(278, 279, 120 ),
-				 new Arrête(279, 278, 120 ),
-				 new Arrête(281, 282, 120 ),
-				 new Arrête(282, 281, 120 ),
-				 new Arrête(284, 285, 120 ),
-				 new Arrête(285, 284, 120 ),
-				 new Arrête(292, 293, 120 ),
-				 new Arrête(293, 292, 120 ),
-				 new Arrête(295, 296, 120 ),
-				 new Arrête(296, 295, 120 ),
-				 new Arrête(298, 299, 120 ),
-				 new Arrête(299, 298, 120 ),
-				 new Arrête(303, 304, 120 ),
-				 new Arrête(304, 303, 120 ),
-				 new Arrête(309, 310, 120 ),
-				 new Arrête(310, 309, 120 ),
-				 new Arrête(311, 313, 120 ),
-				 new Arrête(311, 312, 120 ),
-				 new Arrête(311, 314, 120 ),
-				 new Arrête(311, 315, 120 ),
-				 new Arrête(312, 313, 120 ),
-				 new Arrête(312, 314, 120 ),
-				 new Arrête(312, 315, 120 ),
-				 new Arrête(312, 311, 120 ),
-				 new Arrête(313, 311, 120 ),
-				 new Arrête(313, 314, 120 ),
-				 new Arrête(313, 315, 120 ),
-				 new Arrête(313, 312, 120 ),
-				 new Arrête(314, 315, 120 ),
-				 new Arrête(314, 313, 120 ),
-				 new Arrête(314, 312, 120 ),
-				 new Arrête(314, 311, 120 ),
-				 new Arrête(315, 314, 120 ),
-				 new Arrête(315, 313, 120 ),
-				 new Arrête(315, 312, 120 ),
-				 new Arrête(315, 311, 120 ),
-				 new Arrête(325, 327, 120 ),
-				 new Arrête(325, 326, 120 ),
-				 new Arrête(326, 327, 120 ),
-				 new Arrête(326, 325, 120 ),
-				 new Arrête(327, 325, 120 ),
-				 new Arrête(327, 326, 120 ),
-				 new Arrête(339, 341, 120 ),
-				 new Arrête(339, 340, 120 ),
-				 new Arrête(340, 341, 120 ),
-				 new Arrête(340, 339, 120 ),
-				 new Arrête(341, 339, 120 ),
-				 new Arrête(341, 340, 120 ),
-				 new Arrête(342, 344, 120 ),
-				 new Arrête(342, 343, 120 ),
-				 new Arrête(343, 344, 120 ),
-				 new Arrête(343, 342, 120 ),
-				 new Arrête(344, 342, 120 ),
-				 new Arrête(344, 343, 120 ),
-				 new Arrête(346, 347, 120 ),
-				 new Arrête(347, 346, 120 ),
-				 new Arrête(354, 355, 120 ),
-				 new Arrête(355, 354, 120 ),
-				 new Arrête(366, 367, 120 ),
-				 new Arrête(367, 366, 120 ),
-				 
-				
-			    };
-			    String []nom= { "Abbesses ",
-			    		 "Alexandre Dumas ",
-			    		 "Alma Marceau ",
-			    		 "Alésia ",
-			    		 "Anatole France ",
-			    		 "Anvers ",
-			    		 "Argentine ",
-			    		 "Arts et Métiers ",
-			    		 "Arts et Métiers ",
-			    		 "Assemblée Nationale ",
-			    		 "Aubervilliers-Pantin, Quatre Chemins ",
-			    		 "Avenue Émile Zola ",
-			    		 "Avron ",
-			    		 "Barbès Rochechouart ",
-			    		 "Barbès Rochechouart ",
-			    		 "Basilique de Saint-Denis ",
-			    		 "Bastille ",
-			    		 "Bastille ",
-			    		 "Bastille ",
-			    		 "Bel Air ",
-			    		 "Belleville ",
-			    		 "Belleville ",
-			    		 "Bercy ",
-			    		 "Bercy ",
-			    		 "Bibliothèque François Mitterand ",
-			    		 "Billancourt ",
-			    		 "Bir-Hakeim ",
-			    		 "Blanche ",
-			    		 "Bobigny, Pablo Picasso ",
-			    		 "Bobigny-Pantin, Raymond Queneau ",
-			    		 "Boissière ",
-			    		 "Bolivar ",
-			    		 "Bonne Nouvelle ",
-			    		 "Bonne Nouvelle ",
-			    		 "Botzaris ",
-			    		 "Boucicaut ",
-			    		 "Boulogne, Jean Jaurès ",
-			    		 "Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danube ",
-			    		 "Bourse ",
-			    		 "Brochant ",
-			    		 "Bréguet-Sabin ",
-			    		 "Buttes Chaumont ",
-			    		 "Buzenval ",
-			    		 "Bérault ",
-			    		 "Cadet ",
-			    		 "Cambronne ",
-			    		 "Campo-Formio ",
-			    		 "Cardinal Lemoine ",
-			    		 "Carrefour Pleyel ",
-			    		 "Censier Daubenton ",
-			    		 "Champs-Élysées-Clémenceau ",
-			    		 "Champs-Élysées-Clémenceau ",
-			    		 "Chardon Lagâche ",
-			    		 "Charenton-Écoles ",
-			    		 "Charles Michels ",
-			    		 "Charles de Gaulle-Étoile ",
-			    		 "Charles de Gaulle-Étoile ",
-			    		 "Charles de Gaulle-Étoile ",
-			    		 "Charonne ",
-			    		 "Chaussée d'Antin, La Fayette ",
-			    		 "Chaussée d'Antin, La Fayette ",
-			    		 "Chemin Vert ",
-			    		 "Chevaleret ",
-			    		 "Château Landon ",
-			    		 "Château Rouge ",
-			    		 "Château d'Eau ",
-			    		 "Château de Vincennes ",
-			    		 "Châtelet ",
-			    		 "Châtelet ",
-			    		 "Châtelet ",
-			    		 "Châtelet ",
-			    		 "Châtelet ",
-			    		 "Châtillon-Montrouge ",
-			    		 "Cité ",
-			    		 "Cluny, La Sorbonne ",
-			    		 "Colonel Fabien ",
-			    		 "Commerce ",
-			    		 "Concorde ",
-			    		 "Concorde ",
-			    		 "Concorde ",
-			    		 "Convention ",
-			    		 "Corentin Celton ",
-			    		 "Corentin-Cariou ",
-			    		 "Corvisart ",
-			    		 "Cour Saint-Émilion ",
-			    		 "Courcelles ",
-			    		 "Couronnes ",
-			    		 "Crimée ",
-			    		 "Croix de Chavaux ",
-			    		 "Créteil-Préfecture ",
-			    		 "Créteil-Université ",
-			    		 "Créteil-l'Echat, Hôpital Henri Mondor ",
-			    		 "Danube ",
-			    		 "Daumesnil ",
-			    		 "Daumesnil ",
-			    		 "Denfert Rochereau ",
-			    		 "Denfert Rochereau ",
-			    		 "Dugommier ",
-			    		 "Dupleix ",
-			    		 "Duroc ",
-			    		 "Duroc ",
-			    		 "Edgar Quinet ",
-			    		 "Esplanade de la Défense ",
-			    		 "Europe ",
-			    		 "Exelmans ",
-			    		 "Faidherbe-Chaligny ",
-			    		 "Falguière ",
-			    		 "Filles du Calvaire ",
-			    		 "Fort d'Aubervilliers ",
-			    		 "Franklin D. Roosevelt ",
-			    		 "Franklin D. Roosevelt ",
-			    		 "Félix Faure ",
-			    		 "Gabriel Péri, Asnières-Gennevilliers ",
-			    		 "Gaité ",
-			    		 "Galliéni ",
-			    		 "Gambetta ",
-			    		 "Gambetta ",
-			    		 "Gare d'Austerlitz ",
-			    		 "Gare d'Austerlitz ",
-			    		 "Gare de Lyon ",
-			    		 "Gare de Lyon ",
-			    		 "Gare de l'Est ",
-			    		 "Gare de l'Est ",
-			    		 "Gare de l'Est ",
-			    		 "Gare du Nord ",
-			    		 "Gare du Nord ",
-			    		 "Garibaldi ",
-			    		 "George V ",
-			    		 "Glacière ",
-			    		 "Goncourt ",
-			    		 "Grande Arche de la Défense ",
-			    		 "Guy Môquet ",
-			    		 "Havre Caumartin ",
-			    		 "Havre Caumartin ",
-			    		 "Hoche ",
-			    		 "Hôtel de Ville ",
-			    		 "Hôtel de Ville ",
-			    		 "Invalides ",
-			    		 "Invalides ",
-			    		 "Iéna ",
-			    		 "Jacques Bonsergent ",
-			    		 "Jasmin ",
-			    		 "Jaurès ",
-			    		 "Jaurès ",
-			    		 "Jaurès ",
-			    		 "Javel ",
-			    		 "Jourdain ",
-			    		 "Jules Joffrin ",
-			    		 "Jussieu ",
-			    		 "Jussieu ",
-			    		 "Kléber ",
-			    		 "La Chapelle ",
-			    		 "La Courneuve, 8 Mai 1945 ",
-			    		 "La Fourche ",
-			    		 "La Motte Picquet-Grenelle ",
-			    		 "La Motte Picquet-Grenelle ",
-			    		 "La Motte Picquet-Grenelle ",
-			    		 "La Muette ",
-			    		 "La Tour-Maubourg ",
-			    		 "Lamarck Caulaincourt ",
-			    		 "Laumière ",
-			    		 "Le Kremlin-Bicêtre ",
-			    		 "Le Peletier ",
-			    		 "Ledru Rollin ",
-			    		 "Les Gobelins ",
-			    		 "Les Halles ",
-			    		 "Les Sablons ",
-			    		 "Liberté ",
-			    		 "Liège ",
-			    		 "Louis Blanc ",
-			    		 "Louis Blanc ",
-			    		 "Louise Michel ",
-			    		 "Lourmel ",
-			    		 "Louvre, Rivoli ",
-			    		 "Mabillon ",
-			    		 "Madeleine ",
-			    		 "Madeleine ",
-			    		 "Madeleine ",
-			    		 "Mairie d'Issy ",
-			    		 "Mairie d'Ivry ",
-			    		 "Mairie de Clichy ",
-			    		 "Mairie de Montreuil ",
-			    		 "Mairie de Saint-Ouen ",
-			    		 "Mairie des Lilas ",
-			    		 "Maison Blanche ",
-			    		 "Maisons-Alfort les Juilliottes ",
-			    		 "Maisons-Alfort, Stade ",
-			    		 "Malakoff-Plateau de Vanves ",
-			    		 "Malakoff-Rue Étienne Dolet ",
-			    		 "Malesherbes ",
-			    		 "Maraîchers ",
-			    		 "Marcadet Poissonniers ",
-			    		 "Marcadet Poissonniers ",
-			    		 "Marcel Sembat ",
-			    		 "Marx Dormoy ",
-			    		 "Maubert Mutualité ",
-			    		 "Michel Ange Auteuil ",
-			    		 "Michel Ange Auteuil ",
-			    		 "Michel Ange Molitor ",
-			    		 "Michel Ange Molitor ",
-			    		 "Michel Bizot ",
-			    		 "Mirabeau ",
-			    		 "Miromesnil ",
-			    		 "Miromesnil ",
-			    		 "Monceau ",
-			    		 "Montgallet ",
-			    		 "Montparnasse Bienvenue ",
-			    		 "Montparnasse Bienvenue ",
-			    		 "Montparnasse Bienvenue ",
-			    		 "Montparnasse Bienvenue ",
-			    		 "Mouton-Duvernet ",
-			    		 "Ménilmontant ",
-			    		 "Nation ",
-			    		 "Nation ",
-			    		 "Nation ",
-			    		 "Nation ",
-			    		 "Nationale ",
-			    		 "Notre Dame de Lorette ",
-			    		 "Notre-Dame-des-Champs ",
-			    		 "Oberkampf ",
-			    		 "Oberkampf ",
-			    		 "Odéon ",
-			    		 "Odéon ",
-			    		 "Opéra ",
-			    		 "Opéra ",
-			    		 "Opéra ",
-			    		 "Ourcq ",
-			    		 "Palais Royal-Musée du Louvre ",
-			    		 "Palais Royal-Musée du Louvre ",
-			    		 "Parmentier ",
-			    		 "Passy ",
-			    		 "Pasteur ",
-			    		 "Pasteur ",
-			    		 "Pelleport ",
-			    		 "Pernety ",
-			    		 "Philippe-Auguste ",
-			    		 "Picpus ",
-			    		 "Pierre Curie ",
-			    		 "Pigalle ",
-			    		 "Pigalle ",
-			    		 "Place Balard ",
-			    		 "Place Monge ",
-			    		 "Place d'Italie ",
-			    		 "Place d'Italie ",
-			    		 "Place d'Italie ",
-			    		 "Place de Clichy ",
-			    		 "Place de Clichy ",
-			    		 "Place des Fêtes ",
-			    		 "Place des Fêtes ",
-			    		 "Plaisance ",
-			    		 "Poissonnière ",
-			    		 "Pont de Levallois, Bécon ",
-			    		 "Pont de Neuilly ",
-			    		 "Pont de Sèvres ",
-			    		 "Pont-Marie ",
-			    		 "Pont-Neuf ",
-			    		 "Porte Dauphine ",
-			    		 "Porte Dorée ",
-			    		 "Porte Maillot ",
-			    		 "Porte d'Auteuil ",
-			    		 "Porte d'Italie ",
-			    		 "Porte d'Ivry ",
-			    		 "Porte d'Orléans ",
-			    		 "Porte de Bagnolet ",
-			    		 "Porte de Champerret ",
-			    		 "Porte de Charenton ",
-			    		 "Porte de Choisy ",
-			    		 "Porte de Clichy ",
-			    		 "Porte de Clignancourt ",
-			    		 "Porte de Montreuil ",
-			    		 "Porte de Pantin ",
-			    		 "Porte de Saint-Cloud ",
-			    		 "Porte de Saint-Ouen ",
-			    		 "Porte de Vanves ",
-			    		 "Porte de Versailles ",
-			    		 "Porte de Vincennes ",
-			    		 "Porte de la Chapelle ",
-			    		 "Porte de la Villette ",
-			    		 "Porte des Lilas ",
-			    		 "Porte des Lilas ",
-			    		 "Pré-Saint-Gervais ",
-			    		 "Pyramides ",
-			    		 "Pyramides ",
-			    		 "Pyrénées ",
-			    		 "Père Lachaise ",
-			    		 "Père Lachaise ",
-			    		 "Péreire ",
-			    		 "Quai de la Gare ",
-			    		 "Quai de la Rapée ",
-			    		 "Quatre Septembre ",
-			    		 "Rambuteau ",
-			    		 "Ranelagh ",
-			    		 "Raspail ",
-			    		 "Raspail ",
-			    		 "Rennes ",
-			    		 "Reuilly Diderot ",
-			    		 "Reuilly Diderot ",
-			    		 "Richard Lenoir ",
-			    		 "Richelieu Drouot ",
-			    		 "Richelieu Drouot ",
-			    		 "Riquet ",
-			    		 "Robespierre ",
-			    		 "Rome ",
-			    		 "Rue Montmartre, Grands Boulevards ",
-			    		 "Rue Montmartre, Grands Boulevards ",
-			    		 "Rue Saint-Maur ",
-			    		 "Rue de la Pompe ",
-			    		 "Rue des Boulets ",
-			    		 "Rue du Bac ",
-			    		 "Réaumur Sébastopol ",
-			    		 "Réaumur Sébastopol ",
-			    		 "République ",
-			    		 "République ",
-			    		 "République ",
-			    		 "République ",
-			    		 "République ",
-			    		 "Saint-Ambroise ",
-			    		 "Saint-Augustin ",
-			    		 "Saint-Denis-Porte de Paris ",
-			    		 "Saint-Denis-Université ",
-			    		 "Saint-Fargeau ",
-			    		 "Saint-Francois Xavier ",
-			    		 "Saint-Georges ",
-			    		 "Saint-Germain-des-Prés ",
-			    		 "Saint-Jacques ",
-			    		 "Saint-Lazare ",
-			    		 "Saint-Lazare ",
-			    		 "Saint-Lazare ",
-			    		 "Saint-Mandé, Tourelle ",
-			    		 "Saint-Marcel ",
-			    		 "Saint-Michel ",
-			    		 "Saint-Paul, Le Marais ",
-			    		 "Saint-Philippe du Roule ",
-			    		 "Saint-Placide ",
-			    		 "Saint-Sulpice ",
-			    		 "Saint-Sébastien-Froissart ",
-			    		 "Sentier ",
-			    		 "Simplon ",
-			    		 "Solférino ",
-			    		 "Stalingrad ",
-			    		 "Stalingrad ",
-			    		 "Stalingrad ",
-			    		 "Strasbourg Saint-Denis ",
-			    		 "Strasbourg Saint-Denis ",
-			    		 "Strasbourg Saint-Denis ",
-			    		 "Sully Morland ",
-			    		 "Sèvres Babylone ",
-			    		 "Sèvres Babylone ",
-			    		 "Sèvres Lecourbe ",
-			    		 "Ségur ",
-			    		 "Temple ",
-			    		 "Ternes ",
-			    		 "Tolbiac ",
-			    		 "Trinité d'Estienne d'Orves ",
-			    		 "Trocadéro ",
-			    		 "Trocadéro ",
-			    		 "Tuileries ",
-			    		 "Télégraphe ",
-			    		 "Vaneau ",
-			    		 "Varenne ",
-			    		 "Vaugirard ",
-			    		 "Vavin ",
-			    		 "Victor Hugo ",
-			    		 "Villejuif, Louis Aragon ",
-			    		 "Villejuif, Léo Lagrange ",
-			    		 "Villejuif, P. Vaillant Couturier ",
-			    		 "Villiers ",
-			    		 "Villiers ",
-			    		 "Volontaires ",
-			    		 "Voltaire ",
-			    		 "Wagram ",
-			    		 "École Militaire ",
-			    		 "École Vétérinaire de Maisons-Alfort ",
-			    		 "Église d'Auteuil ",
-			    		 "Église de Pantin ",
-			    		 "Étienne Marcel "
-
-			    		
-			    };
-			   
-			    int [] lignes = {12,2,9,4,3,2,1,11,3,12,7,10,2,2,4,13,1,5,8,6,11,2,14,6,14,9,6,2,5,5,6,16,8,9,16,8,10,10,3,13,5,16,9,1,7,6,5,10,13,7,1,13,10,8,10,1,2,6,9,7,9,8,6,7,4,4,1,1,11,14,4,7,13,4,10,2,8,1,12,8,12,12,7,6,14,2,2,7,9,8,8,8,16,6,8,4,6,6,6,10,13,6,1,3,9,8,12,8,7,1,9,8,13,13,3,3,15,10,5,1,14,4,5,7,4,5,13,1,6,11,1,13,3,9,5,1,11,13,8,9,5,9,2,5,16,10,11,12,10,7,6,2,7,13,10,6,8,9,8,12,5,7,7,8,7,4,1,8,13,7,16,3,8,1,10,12,14,8,12,7,13,9,13,11,7,8,8,13,13,3,9,12,4,9,12,10,10,9,10,9,8,10,13,9,2,8,12,13,4,6,4,2,1,2,6,9,6,12,12,5,9,10,4,3,7,8,5,1,7,3,6,12,6,15,13,2,6,7,12,2,8,7,5,6,7,13,2,11,16,13,7,3,1,9,7,7,2,8,1,10,7,7,4,3,3,8,7,13,4,9,5,9,13,13,12,1,12,7,11,15,16,7,14,11,2,3,3,6,5,3,11,9,4,6,12,1,8,5,8,9,7,9,2,8,9,3,9,9,12,3,4,11,3,5,8,9,9,9,13,13,15,13,12,4,6,12,13,3,1,5,4,1,9,4,4,8,3,4,12,2,5,7,4,8,9,7,10,12,6,10,3,2,7,12,6,9,1,11,10,13,12,4,2,7,7,7,2,3,12,9,3,8,8,10,5,4};
-			   
-			   
-		   
-			    		
-			    //on crée le graphe:
-		        Graphe g = new Graphe(arrêtes);
-			    
-			    g.donnenom(nom);
-			    g.donneligne(lignes);
-			    //on prend en compte les contraintes
-			    g.retirerligne2(ttr);
-			    g.retirerstation2(ttr2);
-			  
-			    //calcul du plus court chemin
-			    int w=0;
-			   
-			    int z=0;
-			    int k=0;
-			    int u=100000000;
-			    while (w<g.estmultiligne(départ)) {
-			    	int y=0;
-			    	while (y<g.estmultiligne(arrivée)) {
-			    	Graphe e = new Graphe(arrêtes);
-				    
-				    e.donnenom(nom);
-				    e.donneligne(lignes);
-				    e.retirerligne2(ttr);
-				    e.retirerstation2(ttr2);
-			    	e.calculateShortestDistances(départ,arrivée,w,y);
-			    	int m=e.sommets[e.StringtoInt(arrivée) + y].getDistanceàlaSource();
-			    	
-			    	if (m<u) {
-			    		u=m;
-			    		k=w;
-			    		z=y;
-			    	}
-			    	y=y+1;
-			    }
-			    w=w+1;
-			    }
-			    
-			    g.calculateShortestDistances(départ,arrivée,k,z);
-			 
-			    g.calculatePath();
-
-			    
-               
-			    ArrayList<Sommet> path = g.getPath();
-			    ArrayList<String> h =g.transformation();
-			    Collections.reverse(h);
-			    Collections.reverse(path);
-			    
-		        if (h.contains(arrivée)) {
-		        System.out.println(g.sommets[g.StringtoInt(départ)].ligne);
-		        h.set(0, h.get(0)+"(" + g.path.get(0+k).ligne +")");
-		        for (int m=1; m<h.size()-1;m++) {
-		        	if (h.get(m)==h.get(m+1)){
-		        		 h.set(m+1, h.get(m+1)+"(" + g.path.get(m+1).ligne +")");
-		        	}
-		        }
-		        System.out.println("Le plus court chemin est: " + h);
-			
-			    g.printResult(départ, arrivée,z);
-			  
-			  }
-		        else {
-		        	h.add(arrivée);
-		        	
-		            h.set(0, h.get(0)+"(" + g.sommets[g.StringtoInt(départ)+k].ligne +")");
-		            for (int m=1; m<h.size()-1;m++) {
-		            	if (h.get(m)==h.get(m+1)){
-		            		 h.set(m+1, h.get(m+1)+"(" + g.path.get(m+1).ligne +")");
-		            	}
-		            }
-		            System.out.println("Le plus court chemin est " + h);
-		           
-		    	    g.printResult(départ, arrivée,z);
-		        }
-		       
-			}
-
+	    
+      
+	    ArrayList<Sommet> path = g.getPath();
+	    ArrayList<String> h =g.transformation();
+	    Collections.reverse(h);
+	    Collections.reverse(path);
+	    
+	   
+	   
+       if (h.contains(arriv�e)) {
+       System.out.println(g.sommets[g.StringtoInt(d�part)].ligne);
+       h.set(0, h.get(0)+"(" + g.path.get(0+k).ligne +")");
+       for (int m=1; m<h.size()-1;m++) {
+       	if (h.get(m)==h.get(m+1)){
+       		 h.set(m+1, h.get(m+1)+"(" + g.path.get(m+1).ligne +")");
+       	}
+       }
+       texte1="Le plus court chemin est: " + h;
+	  
+	    texte2=g.printResult(d�part, arriv�e,z);
+	  
+	  }
+       else {
+       	h.add(arriv�e);
+       	
+           h.set(0, h.get(0)+"(" + g.sommets[g.StringtoInt(d�part)+k].ligne +")");
+           for (int m=1; m<h.size()-1;m++) {
+           	if (h.get(m)==h.get(m+1)){
+           		 h.set(m+1, h.get(m+1)+"(" + g.path.get(m+1).ligne +")");
+           	}
+           }
+          texte1=("Le plus court chemin est " + h);
     
+   	    texte2=g.printResult(d�part, arriv�e,z);
+   	    
+   	    
+       }
+       
+       return texte1 + " : " + texte2;
+		
+	}
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		window = primaryStage;
+		window.setTitle("Menu itin�raire m�tro");
+		
+		
+		
+		 comboBox1 = new ComboBox<>();
+	        comboBox1.getItems().addAll(Files.readAllLines(Paths.get("C:/fichierstexte/Stations2.txt"))
+	        );
+	        
+	      
+	        comboBox1.setPromptText("Station de d�part");
+	        comboBox1.setEditable(true);
+	        
+	        
+	        
+	        comboBox2 = new ComboBox<>();
+	        comboBox2.getItems().addAll(Files.readAllLines(Paths.get("C:/fichierstexte/Stations2.txt"))
+	        );
+	        
+	      
+	        comboBox2.setPromptText("Station d'arriv�e"); 
+	      comboBox2.setEditable(true);
+	      
+	      
+	      
+	        comboBox3 = new ComboBox<>();
+	        comboBox3.getItems().addAll(Files.readAllLines(Paths.get("C:/fichierstexte/Stations2.txt"))
+	        );
+	        
+	      
+	        comboBox3.setPromptText("Stations � interdire"); 
+	      comboBox3.setEditable(true);
+	      
+	      
+	      
+	      
+	      
+	      listview = new ListView<>();
+	        listview.getItems().addAll(1,2,3,4,5,6,7,8,9);
+	        listview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	      
+	     
+
+	        ArrayList<String> stationsinterdites = new ArrayList<String>();
+	        
+		
+		//afficheChemin(comboBox1.getValue(), comboBox2.getValue(), new int[] {9,8}, new String[] {})
+		
+			 
+			
+			 
+			 bouton2 = new Button();
+				bouton2.setText("Ajouter");
+				bouton2.setOnAction(e ->  stationsinterdites.add(comboBox3.getValue()) ); 
+				
+				
+				
+				
+				
+				bouton3 = new Button();
+				bouton3.setText("Supprimer");
+				bouton3.setOnAction(e ->  stationsinterdites.remove(comboBox3.getValue()) ); 
+				
+				
+				
+				
+				bouton1 = new Button();
+				bouton1.setText("Calcul itin�raire");
+				
+				 bouton1.setOnAction(e ->  {
+					try {
+						System.out.println(afficheChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites ));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}); 
+			 
+				 
+				 
+			 
+			 VBox layout = new VBox(10);
+		        layout.setPadding(new Insets(20, 20, 20, 20));
+		        layout.getChildren().addAll(comboBox1,comboBox2,listview,comboBox3,bouton2, bouton3, bouton1);
+
+		        scene = new Scene(layout, 600, 500);
+		        window.setScene(scene);
+		        window.show();
 	}
 	
+	ArrayList<Integer> tabint() { 
+		
+		ObservableList<Integer> l;
+        l = listview.getSelectionModel().getSelectedItems();
+        ArrayList<Integer> tab = new ArrayList<Integer>(l); // ObservableList<String> --> Arraylist<String>
+        
+        return tab;
+       
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		launch(args);
+		
+	
+       
+      
 
+		
+	        
+	}
+
+	
+}

@@ -1,11 +1,11 @@
-package projet;
+package application;
 
-public class ArrÃªte {
+public class Arrête {
 	public int origine;
 	public int destination;
 	public int poids;
 	 
-	public ArrÃªte(int o, int d, int p) {
+	public Arrête(int o, int d, int p) {
 	    this.origine = o;
 	    this.destination= d;
 	    this.poids = p;
