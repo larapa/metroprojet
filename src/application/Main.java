@@ -46,7 +46,7 @@ public class Main extends Application  {
 		ArrayList<Arrête> arrêtes = new  ArrayList<Arrête>();
 		List<String> arrêtesString = null;
 
-		arrêtesString = Files.readAllLines(Paths.get("applications/Arrêtes.txt"));
+		arrêtesString = Files.readAllLines(Paths.get("./src/application/Arrêtes.txt"));
 
 		for (String s: arrêtesString) {
 			String str[] = s.split(" ");
