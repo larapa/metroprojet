@@ -33,6 +33,7 @@ public class Main extends Application  {
     ComboBox<String> comboBox2;
     ComboBox<String> comboBox3;
 	ListView<Integer> listview;
+	
 	public static String afficheChemin(String départ, String arrivée,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites) throws IOException {
 		
 		String texte1;
