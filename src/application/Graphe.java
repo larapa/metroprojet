@@ -117,7 +117,7 @@ public class Graphe {
 
 
 
-        String output = ("Ce trajet entre " + dep + "et " + arr + "dure " + (sommets[StringtoInt(arr)+a].getDistanceàlaSource()) + " secondes.");
+        String output = ("Ce trajet entre " + dep + "et " + arr + "dure " + (sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25) + " secondes.");
 
 
         return output;
