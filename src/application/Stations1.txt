@@ -1,0 +1,376 @@
+Abbesses ;12
+Alexandre Dumas ;2
+Alma Marceau ;9
+Alésia ;4
+Anatole France ;3
+Anvers ;2
+Argentine ;1
+Arts et Métiers ;11
+Arts et Métiers ;3
+Assemblée Nationale ;12
+Aubervilliers-Pantin, Quatre Chemins ;7
+Avenue Émile Zola ;10
+Avron ;2
+Barbès Rochechouart ;2
+Barbès Rochechouart ;4
+Basilique de Saint-Denis ;13
+Bastille ;1
+Bastille ;5
+Bastille ;8
+Bel Air ;6
+Belleville ;11
+Belleville ;2
+Bercy ;14
+Bercy ;6
+Bibliothèque François Mitterand ;14
+Billancourt ;9
+Bir-Hakeim ;6
+Blanche ;2
+Bobigny, Pablo Picasso ;5
+Bobigny-Pantin, Raymond Queneau ;5
+Boissière ;6
+Bolivar ;16
+Bonne Nouvelle ;8
+Bonne Nouvelle ;9
+Botzaris ;16
+Boucicaut ;8
+Boulogne, Jean Jaurès ;10
+Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danube ;10
+Bourse ;3
+Brochant ;13
+Bréguet-Sabin ;5
+Buttes Chaumont ;16
+Buzenval ;9
+Bérault ;1
+Cadet ;7
+Cambronne ;6
+Campo-Formio ;5
+Cardinal Lemoine ;10
+Carrefour Pleyel ;13
+Censier Daubenton ;7
+Champs Élysées, Clémenceau ;1
+Champs Élysées, Clémenceau ;13
+Chardon Lagâche ;10
+Charenton-Écoles ;8
+Charles Michels ;10
+Charles de Gaulle, Étoile ;1
+Charles de Gaulle, Étoile ;2
+Charles de Gaulle, Étoile ;6
+Charonne ;9
+Chaussée d'Antin, La Fayette ;7
+Chaussée d'Antin, La Fayette ;9
+Chemin Vert ;8
+Chevaleret ;6
+Château Landon ;7
+Château Rouge ;4
+Château d'Eau ;4
+Château de Vincennes ;1
+Châtelet ;1
+Châtelet ;11
+Châtelet ;14
+Châtelet ;4
+Châtelet ;7
+Châtillon-Montrouge ;13
+Cité ;4
+Cluny, La Sorbonne ;10
+Colonel Fabien ;2
+Commerce ;8
+Concorde ;1
+Concorde ;12
+Concorde ;8
+Convention ;12
+Corentin Celton ;12
+Corentin-Cariou ;7
+Corvisart ;6
+Cour Saint-Émilion ;14
+Courcelles ;2
+Couronnes ;2
+Crimée ;7
+Croix de Chavaux ;9
+Créteil-Préfecture ;8
+Créteil-Université ;8
+Créteil-l'Echat, Hôpital Henri Mondor ;8
+Danube ;16
+Daumesnil ;6
+Daumesnil ;8
+Denfert Rochereau ;4
+Denfert Rochereau ;6
+Dugommier ;6
+Dupleix ;6
+Duroc ;10
+Duroc ;13
+Edgar Quinet ;6
+Esplanade de la Défense ;1
+Europe ;3
+Exelmans ;9
+Faidherbe-Chaligny ;8
+Falguière ;12
+Filles du Calvaire ;8
+Fort d'Aubervilliers ;7
+Franklin D. Roosevelt ;1
+Franklin D. Roosevelt ;9
+Félix Faure ;8
+Gabriel Péri, Asnières-Gennevilliers ;13
+Gaité ;13
+Galliéni ;3
+Gambetta ;3
+Gambetta ;15
+Gare d'Austerlitz ;10
+Gare d'Austerlitz ;5
+Gare de Lyon ;1
+Gare de Lyon ;14
+Gare de l'Est ;4
+Gare de l'Est ;5
+Gare de l'Est ;7
+Gare du Nord ;4
+Gare du Nord ;5
+Garibaldi ;13
+George V ;1
+Glacière ;6
+Goncourt ;11
+Grande Arche de la Défense ;1
+Guy Môquet ;13
+Havre Caumartin ;3
+Havre Caumartin ;9
+Hoche ;5
+Hôtel de Ville ;1
+Hôtel de Ville ;11
+Invalides ;13
+Invalides ;8
+Iéna ;9
+Jacques Bonsergent ;5
+Jasmin ;9
+Jaurès ;2
+Jaurès ;5
+Jaurès ;16
+Javel ;10
+Jourdain ;11
+Jules Joffrin ;12
+Jussieu ;10
+Jussieu ;7
+Kléber ;6
+La Chapelle ;2
+La Courneuve, 8 Mai 1945 ;7
+La Fourche ;13
+La Motte Picquet, Grenelle ;10
+La Motte Picquet, Grenelle ;6
+La Motte Picquet, Grenelle ;8
+La Muette ;9
+La Tour-Maubourg ;8
+Lamarck Caulaincourt ;12
+Laumière ;5
+Le Kremlin-Bicêtre ;7
+Le Peletier ;7
+Ledru Rollin ;8
+Les Gobelins ;7
+Les Halles ;4
+Les Sablons ;1
+Liberté ;8
+Liège ;13
+Louis Blanc ;7
+Louis Blanc ;16
+Louise Michel ;3
+Lourmel ;8
+Louvre, Rivoli ;1
+Mabillon ;10
+Madeleine ;12
+Madeleine ;14
+Madeleine ;8
+Mairie d'Issy ;12
+Mairie d'Ivry ;7
+Mairie de Clichy ;13
+Mairie de Montreuil ;9
+Mairie de Saint-Ouen ;13
+Mairie des Lilas ;11
+Maison Blanche ;7
+Maisons-Alfort les Juilliottes ;8
+Maisons-Alfort, Stade ;8
+Malakoff-Plateau de Vanves ;13
+Malakoff-Rue Étienne Dolet ;13
+Malesherbes ;3
+Maraîchers ;9
+Marcadet Poissonniers ;12
+Marcadet Poissonniers ;4
+Marcel Sembat ;9
+Marx Dormoy ;12
+Maubert Mutualité ;10
+Michel Ange Auteuil ;10
+Michel Ange Auteuil ;9
+Michel Ange Molitor ;10
+Michel Ange Molitor ;9
+Michel Bizot ;8
+Mirabeau ;10
+Miromesnil ;13
+Miromesnil ;9
+Monceau ;2
+Montgallet ;8
+Montparnasse Bienvenue ;12
+Montparnasse Bienvenue ;13
+Montparnasse Bienvenue ;4
+Montparnasse Bienvenue ;6
+Mouton-Duvernet ;4
+Ménilmontant ;2
+Nation ;1
+Nation ;2
+Nation ;6
+Nation ;9
+Nationale ;6
+Notre Dame de Lorette ;12
+Notre-Dame-des-Champs ;12
+Oberkampf ;5
+Oberkampf ;9
+Odéon ;10
+Odéon ;4
+Opéra ;3
+Opéra ;7
+Opéra ;8
+Ourcq ;5
+Palais Royal, Musée du Louvre ;1
+Palais Royal, Musée du Louvre ;7
+Parmentier ;3
+Passy ;6
+Pasteur ;12
+Pasteur ;6
+Pelleport ;15
+Pernety ;13
+Philippe-Auguste ;2
+Picpus ;6
+Pierre Curie ;7
+Pigalle ;12
+Pigalle ;2
+Place Balard ;8
+Place Monge ;7
+Place d'Italie ;5
+Place d'Italie ;6
+Place d'Italie ;7
+Place de Clichy ;13
+Place de Clichy ;2
+Place des Fêtes ;11
+Place des Fêtes ;16
+Plaisance ;13
+Poissonnière ;7
+Pont de Levallois, Bécon ;3
+Pont de Neuilly ;1
+Pont de Sèvres ;9
+Pont-Marie ;7
+Pont-Neuf ;7
+Porte Dauphine ;2
+Porte Dorée ;8
+Porte Maillot ;1
+Porte d'Auteuil ;10
+Porte d'Italie ;7
+Porte d'Ivry ;7
+Porte d'Orléans ;4
+Porte de Bagnolet ;3
+Porte de Champerret ;3
+Porte de Charenton ;8
+Porte de Choisy ;7
+Porte de Clichy ;13
+Porte de Clignancourt ;4
+Porte de Montreuil ;9
+Porte de Pantin ;5
+Porte de Saint-Cloud ;9
+Porte de Saint-Ouen ;13
+Porte de Vanves ;13
+Porte de Versailles ;12
+Porte de Vincennes ;1
+Porte de la Chapelle ;12
+Porte de la Villette ;7
+Porte des Lilas ;11
+Porte des Lilas ;15
+Pré-Saint-Gervais ;16
+Pyramides ;7
+Pyramides ;14
+Pyrénées ;11
+Père Lachaise ;2
+Père Lachaise ;3
+Péreire ;3
+Quai de la Gare ;6
+Quai de la Rapée ;5
+Quatre Septembre ;3
+Rambuteau ;11
+Ranelagh ;9
+Raspail ;4
+Raspail ;6
+Rennes ;12
+Reuilly Diderot ;1
+Reuilly Diderot ;8
+Richard Lenoir ;5
+Richelieu Drouot ;8
+Richelieu Drouot ;9
+Riquet ;7
+Robespierre ;9
+Rome ;2
+Rue Montmartre, Grands Boulevards ;8
+Rue Montmartre, Grands Boulevards ;9
+Rue Saint-Maur ;3
+Rue de la Pompe ;9
+Rue des Boulets ;9
+Rue du Bac ;12
+Réaumur Sébastopol ;3
+Réaumur Sébastopol ;4
+République ;11
+République ;3
+République ;5
+République ;8
+République ;9
+Saint-Ambroise ;9
+Saint-Augustin ;9
+Saint-Denis-Porte de Paris ;13
+Saint-Denis-Université ;13
+Saint-Fargeau ;15
+Saint-Francois Xavier ;13
+Saint-Georges ;12
+Saint-Germain-des-Prés ;4
+Saint-Jacques ;6
+Saint-Lazare ;12
+Saint-Lazare ;13
+Saint-Lazare ;3
+Saint-Mandé, Tourelle ;1
+Saint-Marcel ;5
+Saint-Michel ;4
+Saint-Paul, Le Marais ;1
+Saint-Philippe du Roule ;9
+Saint-Placide ;4
+Saint-Sulpice ;4
+Saint-Sébastien-Froissart ;8
+Sentier ;3
+Simplon ;4
+Solférino ;12
+Stalingrad ;2
+Stalingrad ;5
+Stalingrad ;7
+Strasbourg Saint-Denis ;4
+Strasbourg Saint-Denis ;8
+Strasbourg Saint-Denis ;9
+Sully Morland ;7
+Sèvres Babylone ;10
+Sèvres Babylone ;12
+Sèvres Lecourbe ;6
+Ségur ;10
+Temple ;3
+Ternes ;2
+Tolbiac ;7
+Trinité d'Estienne d'Orves ;12
+Trocadéro ;6
+Trocadéro ;9
+Tuileries ;1
+Télégraphe ;11
+Vaneau ;10
+Varenne ;13
+Vaugirard ;12
+Vavin ;4
+Victor Hugo ;2
+Villejuif, Louis Aragon ;7
+Villejuif, Léo Lagrange ;7
+Villejuif, P. Vaillant Couturier ;7
+Villiers ;2
+Villiers ;3
+Volontaires ;12
+Voltaire ;9
+Wagram ;3
+École Militaire ;8
+École Vétérinaire de Maisons-Alfort ;8
+Église d'Auteuil ;10
+Église de Pantin ;5
+Étienne Marcel ;4
