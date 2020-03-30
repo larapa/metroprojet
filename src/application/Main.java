@@ -58,7 +58,7 @@ public class Main extends Application  {
 				int n = Integer.parseInt(t);
 				b.add(n);
 			}
-			arrêtes.add(new Arrête(b.get(0), b.get(1), b.get(2)));
+			arrêtes.add(new Arrête(b.get(0), b.get(1), b.get(2)+25));
 		}
         
         BufferedReader br;
