@@ -15,16 +15,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+
+import java.io.File;
+
+import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 public class Main extends Application  {
 
 	Button bouton1;
@@ -57,14 +60,44 @@ public class Main extends Application  {
 			}
 			arrêtes.add(new Arrête(b.get(0), b.get(1), b.get(2)));
 		}
-
-
-		List<String>nom= Files.readAllLines(Paths.get("./src/application/Stations1.txt"));
-
-		int [] lignes = {12,2,9,4,3,2,1,11,3,12,7,10,2,2,4,13,1,5,8,6,11,2,14,6,14,9,6,2,5,5,6,16,8,9,16,8,10,10,3,13,5,16,9,1,7,6,5,10,13,7,1,13,10,8,10,1,2,6,9,7,9,8,6,7,4,4,1,1,11,14,4,7,13,4,10,2,8,1,12,8,12,12,7,6,14,2,2,7,9,8,8,8,16,6,8,4,6,6,6,10,13,6,1,3,9,8,12,8,7,1,9,8,13,13,3,3,15,10,5,1,14,4,5,7,4,5,13,1,6,11,1,13,3,9,5,1,11,13,8,9,5,9,2,5,16,10,11,12,10,7,6,2,7,13,10,6,8,9,8,12,5,7,7,8,7,4,1,8,13,7,16,3,8,1,10,12,14,8,12,7,13,9,13,11,7,8,8,13,13,3,9,12,4,9,12,10,10,9,10,9,8,10,13,9,2,8,12,13,4,6,4,2,1,2,6,9,6,12,12,5,9,10,4,3,7,8,5,1,7,3,6,12,6,15,13,2,6,7,12,2,8,7,5,6,7,13,2,11,16,13,7,3,1,9,7,7,2,8,1,10,7,7,4,3,3,8,7,13,4,9,5,9,13,13,12,1,12,7,11,15,16,7,14,11,2,3,3,6,5,3,11,9,4,6,12,1,8,5,8,9,7,9,2,8,9,3,9,9,12,3,4,11,3,5,8,9,9,9,13,13,15,13,12,4,6,12,13,3,1,5,4,1,9,4,4,8,3,4,12,2,5,7,4,8,9,7,10,12,6,10,3,2,7,12,6,9,1,11,10,13,12,4,2,7,7,7,2,3,12,9,3,8,8,10,5,4};
-
-
-
+        
+        BufferedReader br;
+        String motLu;
+        ArrayList<Integer> lignesbis=new ArrayList<Integer>();
+        List<String> nombis = new ArrayList<String>();
+        try{
+            br = new BufferedReader(new FileReader(new File("./src/application/Stations1.txt")));
+            while((motLu = br.readLine()) != null)
+            {
+            if (motLu.charAt(motLu.length()-2) ==';'){
+            int monEntier = Integer.parseInt(motLu.charAt(motLu.length()-1)+"");
+            lignesbis.add(monEntier);
+            nombis.add(motLu.substring(0,motLu.length()-2 ));
+            
+            	
+            }
+            else {
+            	int monEntier=Integer.parseInt(motLu.charAt(motLu.length()-1)+"") + (Integer.parseInt(motLu.charAt(motLu.length()-2)+"")*10) ;
+                lignesbis.add(monEntier);
+                nombis.add(motLu.substring(0,motLu.length()-3 ));
+            }
+            
+          
+            }
+            br.close();
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        List<String>nom= nombis;
+ 	   
+        int [] lignes= new int [lignesbis.size()];
+        for (int i=0;i<lignesbis.size();i++) {
+        	lignes[i]=lignesbis.get(i);
+        }
+    
+	   
 
 		//on crée le graphe:
 		Graphe g = new Graphe(arrêtes);
@@ -154,11 +187,51 @@ public class Main extends Application  {
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.setTitle("Menu itinéraire métro");
+        BufferedReader br;
+        String préc="";
+        String motLu;
+        ArrayList<Integer> lignesbis=new ArrayList<Integer>();
+        List<String> nombis = new ArrayList<String>();
+        try{
+            br = new BufferedReader(new FileReader(new File("./src/application/Stations1.txt")));
+            while((motLu = br.readLine()) != null)
+            {
+            
+            if (motLu.charAt(motLu.length()-2) ==';'){
+            if (préc.equals(motLu.substring(0,motLu.length()-2 ))){
+            	
+            }
+            else {
+            int monEntier = Integer.parseInt(motLu.charAt(motLu.length()-1)+"");
+            lignesbis.add(monEntier);
+            nombis.add(motLu.substring(0,motLu.length()-2 ));
+            préc=motLu.substring(0,motLu.length()-2 );
+            }	
+            }
+            else {
+            	if (préc.equals(motLu.substring(0,motLu.length()-3 ))){
+	            	
+	            }
+            	else {
+            	int monEntier=Integer.parseInt(motLu.charAt(motLu.length()-1)+"") + (Integer.parseInt(motLu.charAt(motLu.length()-2)+"")*10) ;
+                lignesbis.add(monEntier);
+                nombis.add(motLu.substring(0,motLu.length()-3 ));
+                préc=motLu.substring(0,motLu.length()-3 );
+            	}
+            }
+            
+          
+            }
+            br.close();
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
 
 		comboBox1 = new ComboBox<>();
-		comboBox1.getItems().addAll(Files.readAllLines(Paths.get("./src/application/Stations2.txt"))
-		);
+		comboBox1.getItems().addAll(nombis);
 
 
 		comboBox1.setPromptText("Station de départ");
@@ -167,8 +240,7 @@ public class Main extends Application  {
 
 
 		comboBox2 = new ComboBox<>();
-		comboBox2.getItems().addAll(Files.readAllLines(Paths.get("./src/application/Stations2.txt"))
-		);
+		comboBox2.getItems().addAll(nombis);
 
 
 		comboBox2.setPromptText("Station d'arrivée");
@@ -177,8 +249,7 @@ public class Main extends Application  {
 
 
 		comboBox3 = new ComboBox<>();
-		comboBox3.getItems().addAll(Files.readAllLines(Paths.get("./src/application/Stations2.txt"))
-		);
+		comboBox3.getItems().addAll(nombis);
 
 
 		comboBox3.setPromptText("Stations à interdire");
