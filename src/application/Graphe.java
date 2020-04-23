@@ -1,256 +1,108 @@
 package application;
-
-
-
 import java.util.ArrayList;
-
 import java.util.List;
 
-
-
-//now we must create graph object and implement dijkstra algorithm
-
 public class Graphe {
-
-
-
     public Sommet[] sommets;
-
     public int nombreSommets;
-
-    public ArrayList<ArrÃªte> arrÃªtes;
-
-    private int nombreArrÃªtes;
-
+    public ArrayList<Arrête> arrêtes;
+    private int nombreArrêtes;
     private int sat;
-
     private int eat;
-
-
-
     public ArrayList<Sommet> path = new ArrayList<Sommet>();
 
-    public Graphe(ArrayList<ArrÃªte> t) {
-
-        this.arrÃªtes = t;
-
+    public Graphe(ArrayList<Arrête> t) {
+        this.arrêtes = t;
         this.nombreSommets = calculnombreSommets(t);
-
         this.sommets = new Sommet[this.nombreSommets];
-
-
-
         for (int n = 0; n < this.nombreSommets; n++) {
-
-            this.sommets[n] = new Sommet();
-
-        }
-
-
-
-        // add all the edges to the nodes, each edge added to two nodes (to and from)
-
-        this.nombreArrÃªtes = this.arrÃªtes.size();
-
-
-
-        for (int m = 0; m < this.nombreArrÃªtes; m++) {
-
-            this.sommets[arrÃªtes.get(m).getorigine()].getArrÃªtes().add(arrÃªtes.get(m));
-
-            this.sommets[arrÃªtes.get(m).getdestination()].getArrÃªtes().add(arrÃªtes.get(m));
-
-        }
-
-
-
+        	this.sommets[n] = new Sommet();
+        	}
+        this.nombreArrêtes = this.arrêtes.size();
+        for (int m = 0; m < this.nombreArrêtes; m++) {
+            this.sommets[arrêtes.get(m).getorigine()].getArrêtes().add(arrêtes.get(m));
+            this.sommets[arrêtes.get(m).getdestination()].getArrêtes().add(arrêtes.get(m));
+            }
     }
 
-
-
-    private int calculnombreSommets(ArrayList<ArrÃªte> a) {
-
-        int nombreSommets = 0;
-
-
-
-        for (ArrÃªte e : a) {
-
-            if (e.getdestination() > nombreSommets)
-
-                nombreSommets = e.getdestination();
-
-            if (e.getorigine() > nombreSommets)
-
-                nombreSommets = e.getorigine();
-
-        }
-
-
-
-        nombreSommets++;
-
-
-
-        return nombreSommets;
-
+    private int calculnombreSommets(ArrayList<Arrête> a) {
+    	int nombreSommets = 0;
+    	for (Arrête e : a) {
+    		if (e.getdestination() > nombreSommets)
+    			nombreSommets = e.getdestination();
+    		if (e.getorigine() > nombreSommets)
+    			nombreSommets = e.getorigine();
+    	}
+    	nombreSommets++;
+    	return nombreSommets;
     }
 
     public int StringtoInt(String a) {
-
-        for (int i=0; i<this.sommets.length;i++) {
-
-            if (this.sommets[i].nom.equals(a)) {
-
-                return i;
-
-            }
-
-        }
-
-        throw new IllegalArgumentException("nom incorrect");
-
+    	for (int i=0; i<this.sommets.length;i++) {
+    		if (this.sommets[i].nom.equals(a)) {
+    			return i;
+    		}
+    	}
+    	throw new IllegalArgumentException("nom incorrect");
     }
-
-
 
     public void calculateShortestDistances(String a, String b,int k,int l) {
-
-        int startAt=this.StringtoInt(a)+k;
-
-        int endAt=this.StringtoInt(b)+ l;
-
-        this.sat = startAt;
-
-        this.eat = endAt;
-
-        this.sommets[startAt].setDistanceFromSource(0);
-
-        int nextNode = startAt;
-
-
-
-        // visit every node
-
-        for (int i = 0; i < this.sommets.length; i++) {
-
-            // loop around the edges of current node
-
-            ArrayList<ArrÃªte> currentSommetArcs = this.sommets[nextNode].getArrÃªtes();
-
-
-
-            for (int joinedArc = 0; joinedArc < currentSommetArcs.size(); joinedArc++) {
-
-                int neighbourIndex = currentSommetArcs.get(joinedArc).getnumerovoisin(nextNode);
-
-
-
-                // only if not visited
-
-                if (!this.sommets[neighbourIndex].estVisitÃ©()) {
-
-
-
-                    int tentative = this.sommets[nextNode].getDistanceÃ laSource() + currentSommetArcs.get(joinedArc).getpoids();
-
-
-
-                    if (tentative < sommets[neighbourIndex].getDistanceÃ laSource()) {
-
-                        sommets[neighbourIndex].setDistanceFromSource(tentative);
-
-                        sommets[neighbourIndex].setPredecessor(nextNode);
-
-                    }
-
-                }
-
-
-
-            }
-
-
-
-            // all neighbours checked so node visited
-
-            sommets[nextNode].setVisitÃ©(true);
-
-
-
-            // next node must be with shortest distance
-
-            nextNode = getSommetShortestDistanced();
-
-
-
-
-
-        }
-
+    	int startAt=this.StringtoInt(a)+k;
+    	int endAt=this.StringtoInt(b)+ l;
+    	this.sat = startAt;
+    	this.eat = endAt;
+    	this.sommets[startAt].setDistanceFromSource(0);
+    	int nextNode = startAt;
+    	for (int i = 0; i < this.sommets.length; i++) {
+    		ArrayList<Arrête> currentSommetArcs = this.sommets[nextNode].getArrêtes();
+    		for (int joinedArc = 0; joinedArc < currentSommetArcs.size(); joinedArc++) {
+    			int neighbourIndex = currentSommetArcs.get(joinedArc).getnumerovoisin(nextNode);
+    			if (!this.sommets[neighbourIndex].estVisité()) {
+    				int tentative = this.sommets[nextNode].getDistanceàlaSource() + currentSommetArcs.get(joinedArc).getpoids();
+    				if (tentative < sommets[neighbourIndex].getDistanceàlaSource()) {
+    					sommets[neighbourIndex].setDistanceFromSource(tentative);
+    					sommets[neighbourIndex].setPredecessor(nextNode);
+    				}
+    			}
+    		}
+    		sommets[nextNode].setVisité(true);
+    		nextNode = getSommetShortestDistanced();
+    	}
     }
-
-
-
-    // now we're going to implement this method in next part !
 
     private int getSommetShortestDistanced() {
-
-        int storedNodeIndex = 0;
-
-        int storedDist = Integer.MAX_VALUE;
-
-
-
-        for (int i = 0; i < this.sommets.length; i++) {
-
-            int currentDist = this.sommets[i].getDistanceÃ laSource();
-
-
-
-            if (!this.sommets[i].estVisitÃ©() && currentDist < storedDist) {
-
-                storedDist = currentDist;
-
-                storedNodeIndex = i;
-
-            }
-
-        }
-
-
-
-        return storedNodeIndex;
-
+    	int storedNodeIndex = 0;
+    	int storedDist = Integer.MAX_VALUE;
+    	for (int i = 0; i < this.sommets.length; i++) {
+    		int currentDist = this.sommets[i].getDistanceàlaSource();
+    		if (!this.sommets[i].estVisité() && currentDist < storedDist) {
+    			storedDist = currentDist;
+    			storedNodeIndex = i;
+    		}
+    	}
+    	return storedNodeIndex;
     }
 
-
-
-    // display result
-
     public String printResult(String dep,String arr,int a) {
-
-
-        String output="";
-
-        if ((sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)<60) {
-
-
-        output = ("Ce trajet entre " + dep + "et " + arr + "dure " + (sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25) + " secondes.");
-
-
+    	String output="";
+        if ((sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)>3600000) {
+        	return "Un tel itinéraire n'existe pas";
         }
-        else  {
-             if ((sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)<3600) {
-                 int u=(sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)/60;
-                 int mm=(sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)-u*60;
+        else {
+        	if ((sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)<60) {
+        		output = ("Ce trajet entre " + dep + "et " + arr + "dure " + (sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25) + " secondes.");
+        	}
+        else {
+             if ((sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)<3600) {
+                 int u=(sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)/60;
+                 int mm=(sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)-u*60;
                  if (u>1) {
                    if (mm>1){
-                   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)-u*60) + " secondes.");
-                 }
+                	   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)-u*60) + " secondes.");
+                   }
                    else {
                 	   if (mm==1) {
-                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)-u*60) + " seconde.");
+                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)-u*60) + " seconde.");
                 	   }
                 	   else {
                 		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes.");
@@ -259,11 +111,11 @@ public class Graphe {
                  }
                  else {
                    if (mm>1) {
-        	       output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)-u*60) + " secondes.");	
-                  }
+                	   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)-u*60) + " secondes.");	
+                   }
                    else {
                 	   if (mm==1) {
-                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)-u*60) + " secondes.");	
+                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute" + " et " +( (sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)-u*60) + " secondes.");	
                 	   }
                 	   else {
                 		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute ");	 
@@ -272,9 +124,9 @@ public class Graphe {
                  }
              }
              else {
-        	  int w=(sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)/3600;
-        	  int x=((sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)-w*3600)/60;
-        	  int z=((sommets[StringtoInt(arr)+a].getDistanceÃ laSource()-25)-w*3600)-x*60;
+        	  int w=(sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)/3600;
+        	  int x=((sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)-w*3600)/60;
+        	  int z=((sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25)-w*3600)-x*60;
         	  if (w>1) {
         		  if(x>1) {
         			  if (z>1) {
@@ -366,8 +218,159 @@ public class Graphe {
             	  }
         	  }
              }
+             
         }
+        }
+        return output;
 
+    }
+    public String printResult2(String dep,String arr,int a) {
+
+        int zz=sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25;
+        String output="";
+        if (zz>3600000) {
+        	return "Un tel itinéraire n'existe pas";
+        }
+        else {
+        while (zz>36000){
+        	zz=zz-(36000-120);
+        }
+        if (zz<60) {
+
+
+        output = ("Ce trajet entre " + dep + "et " + arr + "dure " + (sommets[StringtoInt(arr)+a].getDistanceàlaSource()-25) + " secondes.");
+
+
+        }
+        else  {
+             if (zz<3600) {
+                 int u=zz/60;
+                 int mm=zz-u*60;
+                 if (u>1) {
+                   if (mm>1){
+                   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes" + " et " +( zz-u*60) + " secondes.");
+                 }
+                   else {
+                	   if (mm==1) {
+                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes" + " et " +( zz-u*60) + " seconde.");
+                	   }
+                	   else {
+                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minutes.");
+                	   }
+                   }
+                 }
+                 else {
+                   if (mm>1) {
+        	       output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute" + " et " +( zz-u*60) + " secondes.");	
+                  }
+                   else {
+                	   if (mm==1) {
+                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute" + " et " +( zz-u*60) + " secondes.");	
+                	   }
+                	   else {
+                		   output=("Ce trajet entre " + dep + "et " + arr + "dure " + u+ " minute ");	 
+                	   }
+                   }
+                 }
+             }
+             else {
+        	  int w=zz/3600;
+        	  int x=zz/60;
+        	  int z=(zz-w*3600)-x*60;
+        	  if (w>1) {
+        		  if(x>1) {
+        			  if (z>1) {
+        				  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures "+ x+ " minutes" + " et " +z+ " secondes.");  
+        			  }
+        			  else {
+        				  if (z==1) {
+        					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures "+ x+ " minutes" + " et " +z+ " seconde.");  
+        				  }
+        				  else {
+        					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures "+ x+ " minutes.");  
+        				  }
+        			  }
+        		  }
+        		  else {
+        			  if (x==1) {
+        				  if (z>1) {
+            				  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures "+ x+ " minute" + " et " +z+ " secondes.");  
+            			  }
+            			  else {
+            				  if (z==1) {
+            					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures "+ x+ " minute" + " et " +z+ " seconde.");  
+            				  }
+            				  else {
+            					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures "+ x+ " minute.");  
+            				  }
+            			  }
+            		  
+        			  }
+        			  else {
+        				  if (z>1) {
+            				  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures " + "et " +z+ " secondes.");  
+            			  }
+            			  else {
+            				  if (z==1) {
+            					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures "+  "et " +z+ " seconde.");  
+            				  }
+            				  else {
+            					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heures.");  
+            				  }
+            			  }
+        			  }
+        		  }
+        	  }
+        	  else {
+        		  if (w==1) {
+            		  if(x>1) {
+            			  if (z>1) {
+            				  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure "+ x+ " minutes" + " et " +z+ " secondes.");  
+            			  }
+            			  else {
+            				  if (z==1) {
+            					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure "+ x+ " minutes" + " et " +z+ " seconde.");  
+            				  }
+            				  else {
+            					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure "+ x+ " minutes.");  
+            				  }
+            			  }
+            		  }
+            		  else {
+            			  if (x==1) {
+            				  if (z>1) {
+                				  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure "+ x+ " minute" + " et " +z+ " secondes.");  
+                			  }
+                			  else {
+                				  if (z==1) {
+                					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure "+ x+ " minute" + " et " +z+ " seconde.");  
+                				  }
+                				  else {
+                					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure "+ x+ " minute.");  
+                				  }
+                			  }
+                		  
+            			  }
+            			  else {
+            				  if (z>1) {
+                				  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure " + "et " +z+ " secondes.");  
+                			  }
+                			  else {
+                				  if (z==1) {
+                					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure "+  "et " +z+ " seconde.");  
+                				  }
+                				  else {
+                					  output=("Ce trajet entre " + dep + "et " + arr + "dure " +w+" heure.");  
+                				  }
+                			  }
+            			  }
+            		  }
+            	  }
+        	  }
+             }
+             
+        }
+        }
         return output;
 
     }
@@ -390,17 +393,17 @@ public class Graphe {
 
 
 
-    public ArrayList<ArrÃªte> getArrÃªte() {
+    public ArrayList<Arrête> getArrête() {
 
-        return this.arrÃªtes;
+        return this.arrêtes;
 
     }
 
 
 
-    public int getnombreArrÃªtes() {
+    public int getnombreArrêtes() {
 
-        return nombreArrÃªtes;
+        return nombreArrêtes;
 
     }
 
@@ -510,11 +513,11 @@ public class Graphe {
 
 
 
-        for (int i=0;i<this.arrÃªtes.size();i++) {
+        for (int i=0;i<this.arrêtes.size();i++) {
 
-            if (this.sommets[this.arrÃªtes.get(i).getdestination()].ligne==a || this.sommets[this.arrÃªtes.get(i).getorigine()].ligne==a ) {
+            if (this.sommets[this.arrêtes.get(i).getdestination()].ligne==a || this.sommets[this.arrêtes.get(i).getorigine()].ligne==a ) {
 
-                this.arrÃªtes.get(i).poids=1000000;
+                this.arrêtes.get(i).poids=3600001;
 
             }
 
@@ -550,15 +553,15 @@ public class Graphe {
 
 
 
-        for (int i=0;i<this.arrÃªtes.size();i++) {
+        for (int i=0;i<this.arrêtes.size();i++) {
 
 
 
-            if (this.sommets[this.arrÃªtes.get(i).getdestination()].nom.equals(d) || this.sommets[this.arrÃªtes.get(i).getorigine()].nom.contentEquals(d) ) {
+            if (this.sommets[this.arrêtes.get(i).getdestination()].nom.equals(d) || this.sommets[this.arrêtes.get(i).getorigine()].nom.contentEquals(d) ) {
 
 
 
-                this.arrÃªtes.get(i).poids=1000000;
+                this.arrêtes.get(i).poids=3600001;
 
             }
 
@@ -575,5 +578,13 @@ public class Graphe {
         }
 
     }
-
+    public void transformearrête(){
+    	for (int i=0;i<this.arrêtes.size();i++) {
+    		if ((this.sommets[this.arrêtes.get(i).origine].nom).equals(this.sommets[this.arrêtes.get(i).destination].nom)){
+    			
+    			this.arrêtes.get(i).poids=36000+25;
+    		}
+    	
+    	}
+    }
 }

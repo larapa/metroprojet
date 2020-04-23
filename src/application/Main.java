@@ -15,19 +15,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-
-import java.io.File;
-
-import java.io.FileReader;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 public class Main extends Application  {
 
 	Button bouton1;
@@ -38,157 +38,16 @@ public class Main extends Application  {
 	ComboBox<String> comboBox1;
 	ComboBox<String> comboBox2;
 	ComboBox<String> comboBox3;
+	ComboBox<String> comboBox4;
+	
 	ListView<Integer> listview;
-	public static String afficheChemin(String départ, String arrivée,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites) throws IOException {
-
-		String texte1;
-		String texte2;
-
-
-
-		ArrayList<Arrête> arrêtes = new  ArrayList<Arrête>();
-		List<String> arrêtesString = null;
-
-		arrêtesString = Files.readAllLines(Paths.get("./src/application/Arrêtes.txt"));
-
-		for (String s: arrêtesString) {
-			String str[] = s.split(" ");
-			ArrayList<Integer> b = new ArrayList<Integer>();
-			for (String t: str) {
-				int n = Integer.parseInt(t);
-				b.add(n);
-			}
-			arrêtes.add(new Arrête(b.get(0), b.get(1), b.get(2)+25));
-		}
-        
-        BufferedReader br;
-        String motLu;
-        ArrayList<Integer> lignesbis=new ArrayList<Integer>();
-        List<String> nombis = new ArrayList<String>();
-        try{
-            br = new BufferedReader(new FileReader(new File("./src/application/Stations1.txt")));
-            while((motLu = br.readLine()) != null)
-            {
-            if (motLu.charAt(motLu.length()-2) ==';'){
-            int monEntier = Integer.parseInt(motLu.charAt(motLu.length()-1)+"");
-            lignesbis.add(monEntier);
-            nombis.add(motLu.substring(0,motLu.length()-2 ));
-            
-            	
-            }
-            else {
-            	int monEntier=Integer.parseInt(motLu.charAt(motLu.length()-1)+"") + (Integer.parseInt(motLu.charAt(motLu.length()-2)+"")*10) ;
-                lignesbis.add(monEntier);
-                nombis.add(motLu.substring(0,motLu.length()-3 ));
-            }
-            
-          
-            }
-            br.close();
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        List<String>nom= nombis;
- 	   
-        int [] lignes= new int [lignesbis.size()];
-        for (int i=0;i<lignesbis.size();i++) {
-        	lignes[i]=lignesbis.get(i);
-        }
-    
-	   
-
-		//on crée le graphe:
-		Graphe g = new Graphe(arrêtes);
-
-		g.donnenom(nom);
-		g.donneligne(lignes);
-		//on prend en compte les contraintes
-		g.retirerligne2(LignesInterdites);
-		g.retirerstation2(StationsInterdites);
-
-		//calcul du plus court chemin
-		int w=0;
-
-		int z=0;
-		int k=0;
-		int u=100000000;
-
-		while (w<g.estmultiligne(départ)) {
-
-			int y=0;
-			while (y<g.estmultiligne(arrivée)) {
-				Graphe e = new Graphe(arrêtes);
-
-				e.donnenom(nom);
-				e.donneligne(lignes);
-				e.retirerligne2(LignesInterdites);
-				e.retirerstation2(StationsInterdites);
-				e.calculateShortestDistances(départ,arrivée,w,y);
-				int m=e.sommets[e.StringtoInt(arrivée) + y].getDistanceàlaSource();
-
-				if (m<u) {
-					u=m;
-					k=w;
-					z=y;
-				}
-				y=y+1;
-			}
-			w=w+1;
-		}
-
-		g.calculateShortestDistances(départ,arrivée,k,z);
-
-		g.calculatePath();
-
-
-
-		ArrayList<Sommet> path = g.getPath();
-		ArrayList<String> h =g.transformation();
-		Collections.reverse(h);
-		Collections.reverse(path);
-
-
-
-		if (h.contains(arrivée)) {
-			System.out.println(g.sommets[g.StringtoInt(départ)].ligne);
-			h.set(0, h.get(0)+"(" + g.path.get(0+k).ligne +")");
-			for (int m=1; m<h.size()-1;m++) {
-				if (h.get(m).equals(h.get(m+1))){
-					h.set(m+1, h.get(m+1)+"(" + g.path.get(m+1).ligne +")");
-				}
-			}
-			texte1="Le plus court chemin est: " + h;
-
-			texte2=g.printResult(départ, arrivée,z);
-
-		}
-		else {
-			h.add(arrivée);
-
-			h.set(0, h.get(0)+"(" + g.sommets[g.StringtoInt(départ)+k].ligne +")");
-			for (int m=1; m<h.size()-1;m++) {
-				if (h.get(m).equals(h.get(m+1))){
-					h.set(m+1, h.get(m+1)+"(" + g.path.get(m+1).ligne +")");
-				}
-			}
-			texte1=("Le plus court chemin est " + h);
-
-			texte2=g.printResult(départ, arrivée,z);
-
-
-		}
-
-		return texte1 + " : " + texte2;
-
-	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		window.setTitle("Menu itinéraire métro");
+		window.setTitle("Menu itin�raire m�tro");
         BufferedReader br;
-        String préc="";
+        String pr�c="";
         String motLu;
         ArrayList<Integer> lignesbis=new ArrayList<Integer>();
         List<String> nombis = new ArrayList<String>();
@@ -198,25 +57,25 @@ public class Main extends Application  {
             {
             
             if (motLu.charAt(motLu.length()-2) ==';'){
-            if (préc.equals(motLu.substring(0,motLu.length()-2 ))){
+            if (pr�c.equals(motLu.substring(0,motLu.length()-2 ))){
             	
             }
             else {
             int monEntier = Integer.parseInt(motLu.charAt(motLu.length()-1)+"");
             lignesbis.add(monEntier);
             nombis.add(motLu.substring(0,motLu.length()-2 ));
-            préc=motLu.substring(0,motLu.length()-2 );
+            pr�c=motLu.substring(0,motLu.length()-2 );
             }	
             }
             else {
-            	if (préc.equals(motLu.substring(0,motLu.length()-3 ))){
+            	if (pr�c.equals(motLu.substring(0,motLu.length()-3 ))){
 	            	
 	            }
             	else {
             	int monEntier=Integer.parseInt(motLu.charAt(motLu.length()-1)+"") + (Integer.parseInt(motLu.charAt(motLu.length()-2)+"")*10) ;
                 lignesbis.add(monEntier);
                 nombis.add(motLu.substring(0,motLu.length()-3 ));
-                préc=motLu.substring(0,motLu.length()-3 );
+                pr�c=motLu.substring(0,motLu.length()-3 );
             	}
             }
             
@@ -234,7 +93,7 @@ public class Main extends Application  {
 		comboBox1.getItems().addAll(nombis);
 
 
-		comboBox1.setPromptText("Station de départ");
+		comboBox1.setPromptText("Station de d�part");
 		comboBox1.setEditable(true);
 
 
@@ -243,7 +102,7 @@ public class Main extends Application  {
 		comboBox2.getItems().addAll(nombis);
 
 
-		comboBox2.setPromptText("Station d'arrivée");
+		comboBox2.setPromptText("Station d'arriv�e");
 		comboBox2.setEditable(true);
 
 
@@ -252,11 +111,16 @@ public class Main extends Application  {
 		comboBox3.getItems().addAll(nombis);
 
 
-		comboBox3.setPromptText("Stations à interdire");
+		comboBox3.setPromptText("Stations � interdire");
 		comboBox3.setEditable(true);
-
-
-
+		comboBox4 = new ComboBox<>();
+		List<String> test = new ArrayList<String>();
+		test.add("Itin�raire le plus rapide");
+		test.add("Itin�raire avec le moins de changements");
+		test.add("Les deux");
+		comboBox4.getItems().addAll(test);
+		comboBox4.setPromptText("Choix du type d'itin�raire");
+		comboBox4.setEditable(true);
 
 
 		listview = new ListView<>();
@@ -289,11 +153,27 @@ public class Main extends Application  {
 
 
 		bouton1 = new Button();
-		bouton1.setText("Calcul itinéraire");
+		bouton1.setText("Calcul itin�raire");
 
-		bouton1.setOnAction(e ->  {
+		bouton1.setOnAction(e ->   {
 			try {
-				System.out.println(afficheChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites ));
+				if (comboBox4.getValue().equals("Itin�raire avec le moins de changements")) {
+				MoinsDeChangements C = new MoinsDeChangements(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites);//important ici
+				System.out.println(C.afficheChemin2()); //important ici
+				}
+				else {
+					if(comboBox4.getValue().equals("Itin�raire le plus rapide")) {
+					PlusCourtChemin C = new PlusCourtChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites);//important ici
+					System.out.println(C.afficheChemin()); //important ici
+					}
+					else {
+						PlusCourtChemin C = new PlusCourtChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites);//important ici
+						System.out.println(C.afficheChemin());
+						MoinsDeChangements CC = new MoinsDeChangements(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites);//important ici
+						System.out.println(CC.afficheChemin2()); 
+						
+					}
+				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -305,7 +185,7 @@ public class Main extends Application  {
 
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(20, 20, 20, 20));
-		layout.getChildren().addAll(comboBox1,comboBox2,listview,comboBox3,bouton2, bouton3, bouton1);
+		layout.getChildren().addAll(comboBox1,comboBox2,listview,comboBox3,bouton2, bouton3,comboBox4, bouton1);
 
 		scene = new Scene(layout, 600, 500);
 		window.setScene(scene);
@@ -335,6 +215,5 @@ public class Main extends Application  {
 
 
 	}
-
-
 }
+

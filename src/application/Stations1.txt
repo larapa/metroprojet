@@ -1,18 +1,18 @@
 Abbesses ;12
 Alexandre Dumas ;2
 Alma Marceau ;9
-Al√©sia ;4
+AlÈsia ;4
 Anatole France ;3
 Anvers ;2
 Argentine ;1
-Arts et M√©tiers ;11
-Arts et M√©tiers ;3
-Assembl√©e Nationale ;12
+Arts et MÈtiers ;11
+Arts et MÈtiers ;3
+AssemblÈe Nationale ;12
 Aubervilliers-Pantin, Quatre Chemins ;7
-Avenue √âmile Zola ;10
+Avenue …mile Zola ;10
 Avron ;2
-Barb√®s Rochechouart ;2
-Barb√®s Rochechouart ;4
+BarbËs Rochechouart ;2
+BarbËs Rochechouart ;4
 Basilique de Saint-Denis ;13
 Bastille ;1
 Bastille ;5
@@ -22,56 +22,56 @@ Belleville ;11
 Belleville ;2
 Bercy ;14
 Bercy ;6
-Biblioth√®que Fran√ßois Mitterand ;14
+BibliothËque FranÁois Mitterand ;14
 Billancourt ;9
 Bir-Hakeim ;6
 Blanche ;2
 Bobigny, Pablo Picasso ;5
 Bobigny-Pantin, Raymond Queneau ;5
-Boissi√®re ;6
+BoissiËre ;6
 Bolivar ;16
 Bonne Nouvelle ;8
 Bonne Nouvelle ;9
 Botzaris ;16
 Boucicaut ;8
-Boulogne, Jean Jaur√®s ;10
+Boulogne, Jean JaurËs ;10
 Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danube ;10
 Bourse ;3
 Brochant ;13
-Br√©guet-Sabin ;5
+BrÈguet-Sabin ;5
 Buttes Chaumont ;16
 Buzenval ;9
-B√©rault ;1
+BÈrault ;1
 Cadet ;7
 Cambronne ;6
 Campo-Formio ;5
 Cardinal Lemoine ;10
 Carrefour Pleyel ;13
 Censier Daubenton ;7
-Champs √âlys√©es, Cl√©menceau ;1
-Champs √âlys√©es, Cl√©menceau ;13
-Chardon Lag√¢che ;10
-Charenton-√âcoles ;8
+Champs …lysÈes, ClÈmenceau ;1
+Champs …lysÈes, ClÈmenceau ;13
+Chardon Lag‚che ;10
+Charenton-…coles ;8
 Charles Michels ;10
-Charles de Gaulle, √âtoile ;1
-Charles de Gaulle, √âtoile ;2
-Charles de Gaulle, √âtoile ;6
+Charles de Gaulle, …toile ;1
+Charles de Gaulle, …toile ;2
+Charles de Gaulle, …toile ;6
 Charonne ;9
-Chauss√©e d'Antin, La Fayette ;7
-Chauss√©e d'Antin, La Fayette ;9
+ChaussÈe d'Antin, La Fayette ;7
+ChaussÈe d'Antin, La Fayette ;9
 Chemin Vert ;8
 Chevaleret ;6
-Ch√¢teau Landon ;7
-Ch√¢teau Rouge ;4
-Ch√¢teau d'Eau ;4
-Ch√¢teau de Vincennes ;1
-Ch√¢telet ;1
-Ch√¢telet ;11
-Ch√¢telet ;14
-Ch√¢telet ;4
-Ch√¢telet ;7
-Ch√¢tillon-Montrouge ;13
-Cit√© ;4
+Ch‚teau Landon ;7
+Ch‚teau Rouge ;4
+Ch‚teau d'Eau ;4
+Ch‚teau de Vincennes ;1
+Ch‚telet ;1
+Ch‚telet ;11
+Ch‚telet ;14
+Ch‚telet ;4
+Ch‚telet ;7
+Ch‚tillon-Montrouge ;13
+CitÈ ;4
 Cluny, La Sorbonne ;10
 Colonel Fabien ;2
 Commerce ;8
@@ -82,14 +82,14 @@ Convention ;12
 Corentin Celton ;12
 Corentin-Cariou ;7
 Corvisart ;6
-Cour Saint-√âmilion ;14
+Cour Saint-…milion ;14
 Courcelles ;2
 Couronnes ;2
-Crim√©e ;7
+CrimÈe ;7
 Croix de Chavaux ;9
-Cr√©teil-Pr√©fecture ;8
-Cr√©teil-Universit√© ;8
-Cr√©teil-l'Echat, H√¥pital Henri Mondor ;8
+CrÈteil-PrÈfecture ;8
+CrÈteil-UniversitÈ ;8
+CrÈteil-l'Echat, HÙpital Henri Mondor ;8
 Danube ;16
 Daumesnil ;6
 Daumesnil ;8
@@ -100,19 +100,19 @@ Dupleix ;6
 Duroc ;10
 Duroc ;13
 Edgar Quinet ;6
-Esplanade de la D√©fense ;1
+Esplanade de la DÈfense ;1
 Europe ;3
 Exelmans ;9
 Faidherbe-Chaligny ;8
-Falgui√®re ;12
+FalguiËre ;12
 Filles du Calvaire ;8
 Fort d'Aubervilliers ;7
 Franklin D. Roosevelt ;1
 Franklin D. Roosevelt ;9
-F√©lix Faure ;8
-Gabriel P√©ri, Asni√®res-Gennevilliers ;13
-Gait√© ;13
-Galli√©ni ;3
+FÈlix Faure ;8
+Gabriel PÈri, AsniËres-Gennevilliers ;13
+GaitÈ ;13
+GalliÈni ;3
 Gambetta ;3
 Gambetta ;15
 Gare d'Austerlitz ;10
@@ -126,29 +126,29 @@ Gare du Nord ;4
 Gare du Nord ;5
 Garibaldi ;13
 George V ;1
-Glaci√®re ;6
+GlaciËre ;6
 Goncourt ;11
-Grande Arche de la D√©fense ;1
-Guy M√¥quet ;13
+Grande Arche de la DÈfense ;1
+Guy MÙquet ;13
 Havre Caumartin ;3
 Havre Caumartin ;9
 Hoche ;5
-H√¥tel de Ville ;1
-H√¥tel de Ville ;11
+HÙtel de Ville ;1
+HÙtel de Ville ;11
 Invalides ;13
 Invalides ;8
-I√©na ;9
+IÈna ;9
 Jacques Bonsergent ;5
 Jasmin ;9
-Jaur√®s ;2
-Jaur√®s ;5
-Jaur√®s ;16
+JaurËs ;2
+JaurËs ;5
+JaurËs ;16
 Javel ;10
 Jourdain ;11
 Jules Joffrin ;12
 Jussieu ;10
 Jussieu ;7
-Kl√©ber ;6
+KlÈber ;6
 La Chapelle ;2
 La Courneuve, 8 Mai 1945 ;7
 La Fourche ;13
@@ -158,15 +158,15 @@ La Motte Picquet, Grenelle ;8
 La Muette ;9
 La Tour-Maubourg ;8
 Lamarck Caulaincourt ;12
-Laumi√®re ;5
-Le Kremlin-Bic√™tre ;7
+LaumiËre ;5
+Le Kremlin-BicÍtre ;7
 Le Peletier ;7
 Ledru Rollin ;8
 Les Gobelins ;7
 Les Halles ;4
 Les Sablons ;1
-Libert√© ;8
-Li√®ge ;13
+LibertÈ ;8
+LiËge ;13
 Louis Blanc ;7
 Louis Blanc ;16
 Louise Michel ;3
@@ -186,14 +186,14 @@ Maison Blanche ;7
 Maisons-Alfort les Juilliottes ;8
 Maisons-Alfort, Stade ;8
 Malakoff-Plateau de Vanves ;13
-Malakoff-Rue √âtienne Dolet ;13
+Malakoff-Rue …tienne Dolet ;13
 Malesherbes ;3
-Mara√Æchers ;9
+MaraÓchers ;9
 Marcadet Poissonniers ;12
 Marcadet Poissonniers ;4
 Marcel Sembat ;9
 Marx Dormoy ;12
-Maubert Mutualit√© ;10
+Maubert MutualitÈ ;10
 Michel Ange Auteuil ;10
 Michel Ange Auteuil ;9
 Michel Ange Molitor ;10
@@ -209,7 +209,7 @@ Montparnasse Bienvenue ;13
 Montparnasse Bienvenue ;4
 Montparnasse Bienvenue ;6
 Mouton-Duvernet ;4
-M√©nilmontant ;2
+MÈnilmontant ;2
 Nation ;1
 Nation ;2
 Nation ;6
@@ -219,14 +219,14 @@ Notre Dame de Lorette ;12
 Notre-Dame-des-Champs ;12
 Oberkampf ;5
 Oberkampf ;9
-Od√©on ;10
-Od√©on ;4
-Op√©ra ;3
-Op√©ra ;7
-Op√©ra ;8
+OdÈon ;10
+OdÈon ;4
+OpÈra ;3
+OpÈra ;7
+OpÈra ;8
 Ourcq ;5
-Palais Royal, Mus√©e du Louvre ;1
-Palais Royal, Mus√©e du Louvre ;7
+Palais Royal, MusÈe du Louvre ;1
+Palais Royal, MusÈe du Louvre ;7
 Parmentier ;3
 Passy ;6
 Pasteur ;12
@@ -245,22 +245,22 @@ Place d'Italie ;6
 Place d'Italie ;7
 Place de Clichy ;13
 Place de Clichy ;2
-Place des F√™tes ;11
-Place des F√™tes ;16
+Place des FÍtes ;11
+Place des FÍtes ;16
 Plaisance ;13
-Poissonni√®re ;7
-Pont de Levallois, B√©con ;3
+PoissonniËre ;7
+Pont de Levallois, BÈcon ;3
 Pont de Neuilly ;1
-Pont de S√®vres ;9
+Pont de SËvres ;9
 Pont-Marie ;7
 Pont-Neuf ;7
 Porte Dauphine ;2
-Porte Dor√©e ;8
+Porte DorÈe ;8
 Porte Maillot ;1
 Porte d'Auteuil ;10
 Porte d'Italie ;7
 Porte d'Ivry ;7
-Porte d'Orl√©ans ;4
+Porte d'OrlÈans ;4
 Porte de Bagnolet ;3
 Porte de Champerret ;3
 Porte de Charenton ;8
@@ -278,15 +278,15 @@ Porte de la Chapelle ;12
 Porte de la Villette ;7
 Porte des Lilas ;11
 Porte des Lilas ;15
-Pr√©-Saint-Gervais ;16
+PrÈ-Saint-Gervais ;16
 Pyramides ;7
 Pyramides ;14
-Pyr√©n√©es ;11
-P√®re Lachaise ;2
-P√®re Lachaise ;3
-P√©reire ;3
+PyrÈnÈes ;11
+PËre Lachaise ;2
+PËre Lachaise ;3
+PÈreire ;3
 Quai de la Gare ;6
-Quai de la Rap√©e ;5
+Quai de la RapÈe ;5
 Quatre Septembre ;3
 Rambuteau ;11
 Ranelagh ;9
@@ -307,36 +307,36 @@ Rue Saint-Maur ;3
 Rue de la Pompe ;9
 Rue des Boulets ;9
 Rue du Bac ;12
-R√©aumur S√©bastopol ;3
-R√©aumur S√©bastopol ;4
-R√©publique ;11
-R√©publique ;3
-R√©publique ;5
-R√©publique ;8
-R√©publique ;9
+RÈaumur SÈbastopol ;3
+RÈaumur SÈbastopol ;4
+RÈpublique ;11
+RÈpublique ;3
+RÈpublique ;5
+RÈpublique ;8
+RÈpublique ;9
 Saint-Ambroise ;9
 Saint-Augustin ;9
 Saint-Denis-Porte de Paris ;13
-Saint-Denis-Universit√© ;13
+Saint-Denis-UniversitÈ ;13
 Saint-Fargeau ;15
 Saint-Francois Xavier ;13
 Saint-Georges ;12
-Saint-Germain-des-Pr√©s ;4
+Saint-Germain-des-PrÈs ;4
 Saint-Jacques ;6
 Saint-Lazare ;12
 Saint-Lazare ;13
 Saint-Lazare ;3
-Saint-Mand√©, Tourelle ;1
+Saint-MandÈ, Tourelle ;1
 Saint-Marcel ;5
 Saint-Michel ;4
 Saint-Paul, Le Marais ;1
 Saint-Philippe du Roule ;9
 Saint-Placide ;4
 Saint-Sulpice ;4
-Saint-S√©bastien-Froissart ;8
+Saint-SÈbastien-Froissart ;8
 Sentier ;3
 Simplon ;4
-Solf√©rino ;12
+SolfÈrino ;12
 Stalingrad ;2
 Stalingrad ;5
 Stalingrad ;7
@@ -344,33 +344,33 @@ Strasbourg Saint-Denis ;4
 Strasbourg Saint-Denis ;8
 Strasbourg Saint-Denis ;9
 Sully Morland ;7
-S√®vres Babylone ;10
-S√®vres Babylone ;12
-S√®vres Lecourbe ;6
-S√©gur ;10
+SËvres Babylone ;10
+SËvres Babylone ;12
+SËvres Lecourbe ;6
+SÈgur ;10
 Temple ;3
 Ternes ;2
 Tolbiac ;7
-Trinit√© d'Estienne d'Orves ;12
-Trocad√©ro ;6
-Trocad√©ro ;9
+TrinitÈ d'Estienne d'Orves ;12
+TrocadÈro ;6
+TrocadÈro ;9
 Tuileries ;1
-T√©l√©graphe ;11
+TÈlÈgraphe ;11
 Vaneau ;10
 Varenne ;13
 Vaugirard ;12
 Vavin ;4
 Victor Hugo ;2
 Villejuif, Louis Aragon ;7
-Villejuif, L√©o Lagrange ;7
+Villejuif, LÈo Lagrange ;7
 Villejuif, P. Vaillant Couturier ;7
 Villiers ;2
 Villiers ;3
 Volontaires ;12
 Voltaire ;9
 Wagram ;3
-√âcole Militaire ;8
-√âcole V√©t√©rinaire de Maisons-Alfort ;8
-√âglise d'Auteuil ;10
-√âglise de Pantin ;5
-√âtienne Marcel ;4
+…cole Militaire ;8
+…cole VÈtÈrinaire de Maisons-Alfort ;8
+…glise d'Auteuil ;10
+…glise de Pantin ;5
+…tienne Marcel ;4
