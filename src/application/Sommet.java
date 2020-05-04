@@ -1,18 +1,20 @@
 package application;
+
 import java.util.ArrayList;
+
 public class Sommet {
 	public String nom;
 	public int ligne;
-	private int distanceànous = Integer.MAX_VALUE;
-	private boolean visité;
-	private ArrayList<Arrête> arrêtes = new ArrayList<Arrête>();
-	private int predecessor;
+	public int distanceànous = Integer.MAX_VALUE;
+	public boolean visité;
+	public ArrayList<Arrête> arrêtes = new ArrayList<Arrête>();
+	public int prédécesseur;
 
-	public int getDistanceàlaSource() {
+	public int getdistanceàlasource() {
 		return distanceànous;
 	}
 
-	public void setDistanceFromSource(int d) {
+	public void setdistanceàlasource(int d) {
 		this.distanceànous = d;
 	}
 
@@ -20,23 +22,24 @@ public class Sommet {
 		return this.visité;
 	}
 
-	public void setVisité(boolean v) {
+	public void setvisité(boolean v) {
 		this.visité = v;
 	}
 
-	public ArrayList<Arrête> getArrêtes() {
+	public ArrayList<Arrête> getarrêtes() {
 		return this.arrêtes;
 	}
 
-	public void setArrêtes(ArrayList<Arrête> t) {
+	public void setarrêtes(ArrayList<Arrête> t) {
 		this.arrêtes = t;
 	}
-	
-	public int getPredecessor(){
-		return predecessor;
+
+	public int getprédécesseur(){
+		return prédécesseur;
 	}
-	
-	public void setPredecessor(int predecessor){
-		this.predecessor = predecessor;
+
+	public void setprédécesseur(int p){
+		this.prédécesseur = p;
 	}
+
 }
