@@ -1,34 +1,22 @@
 package application;
-
-
-
 import java.io.BufferedReader;
-
 import java.io.File;
-
 import java.io.FileNotFoundException;
-
 import java.io.FileReader;
-
 import java.io.IOException;
-
 import java.nio.file.Files;
-
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
-
 import java.util.Collections;
-
 import java.util.List;
 
 
 
 public class PlusCourtChemin {
 
-	String départ;
+	String dÃ©part;
 
-	String arrivée;
+	String arrivÃ©e;
 
 	ArrayList<Integer> LignesInterdites;
 
@@ -36,11 +24,11 @@ public class PlusCourtChemin {
 
 	
 
-	public PlusCourtChemin (String départ, String arrivée,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites) {
+	public PlusCourtChemin (String dÃ©part, String arrivÃ©e,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites) {
 
-		this.départ = départ;
+		this.dÃ©part = dÃ©part;
 
-		this.arrivée = arrivée;
+		this.arrivÃ©e = arrivÃ©e;
 
 		this.LignesInterdites = LignesInterdites;
 
@@ -64,17 +52,17 @@ public class PlusCourtChemin {
 
 
 
-		ArrayList<Arrête> arrêtes = new  ArrayList<Arrête>();
+		ArrayList<ArrÃªte> arrÃªtes = new  ArrayList<ArrÃªte>();
 
-		List<String> arrêtesString = null;
-
-
-
-		arrêtesString = Files.readAllLines(Paths.get("./src/application/Arrêtes.txt"));
+		List<String> arrÃªtesString = null;
 
 
 
-		for (String s: arrêtesString) {
+		arrÃªtesString = Files.readAllLines(Paths.get("./src/application/ArrÃªtes.txt"));
+
+
+
+		for (String s: arrÃªtesString) {
 
 			String str[] = s.split(" ");
 
@@ -88,7 +76,7 @@ public class PlusCourtChemin {
 
 			}
 
-			arrêtes.add(new Arrête(b.get(0), b.get(1), b.get(2)+25));
+			arrÃªtes.add(new ArrÃªte(b.get(0), b.get(1), b.get(2)+25));
 
 		}
 
@@ -170,9 +158,9 @@ public class PlusCourtChemin {
 
 
 
-		//on crée le graphe:
+		//on crÃ©e le graphe:
 
-		Graphe g = new Graphe(arrêtes);
+		Graphe g = new Graphe(arrÃªtes);
 
 
 
@@ -202,15 +190,15 @@ public class PlusCourtChemin {
 
 
 
-		while (w<g.nombredeligne(départ)) {
+		while (w<g.nombredeligne(dÃ©part)) {
 
 
 
 			int y=0;
 
-			while (y<g.nombredeligne(arrivée)) {
+			while (y<g.nombredeligne(arrivÃ©e)) {
 
-				Graphe e = new Graphe(arrêtes);
+				Graphe e = new Graphe(arrÃªtes);
 
 
 
@@ -222,9 +210,9 @@ public class PlusCourtChemin {
 
 				e.retirerstation2(StationsInterdites);
 
-				e.calculpluscourtedistance(départ,arrivée,w,y);
+				e.calculpluscourtedistance(dÃ©part,arrivÃ©e,w,y);
 
-				int m=e.sommets[e.stringtoint(arrivée) + y].getdistanceàlasource();
+				int m=e.sommets[e.stringtoint(arrivÃ©e) + y].getdistanceÃ lasource();
 
 
 
@@ -248,7 +236,7 @@ public class PlusCourtChemin {
 
 
 
-		g.calculpluscourtedistance(départ,arrivée,k,z);
+		g.calculpluscourtedistance(dÃ©part,arrivÃ©e,k,z);
 
 
 
@@ -274,12 +262,20 @@ public class PlusCourtChemin {
 
 
 
-		if (h.contains(arrivée)) {
+		if (h.contains(arrivÃ©e)) {
 
-			System.out.println(g.sommets[g.stringtoint(départ)].ligne);
-
-			h.set(0, h.get(0)+"(" + g.chemin.get(0+k).ligne +")");
-
+			System.out.println(g.sommets[g.stringtoint(dÃ©part)].ligne);
+            if (g.chemin.get(0+k).ligne==15) {
+			h.set(0, h.get(0)+"(" + "3bis"+")");
+            }
+            else {
+            	if(g.chemin.get(0+k).ligne==16) {
+            		h.set(0, h.get(0)+"(" + "7bis"+")");
+            	}
+            	else {
+            		h.set(0, h.get(0)+"(" + g.chemin.get(0+k).ligne+")");
+            	}
+            }
 			for (int m=1; m<h.size()-1;m++) {
 
 				if (h.get(m).equals(h.get(m+1))){
@@ -290,7 +286,7 @@ public class PlusCourtChemin {
 
 			}
 
-			if ((g.sommets[g.stringtoint(arrivée)+z].getdistanceàlasource()-25)>3600000) {
+			if ((g.sommets[g.stringtoint(arrivÃ©e)+z].getdistanceÃ lasource()-25)>3600000) {
 
 				texte1="";
 
@@ -298,11 +294,11 @@ public class PlusCourtChemin {
 
 			else {
 
-			texte1=("Le trajet le plus rapide est " + h+" :");}
+			texte1=("Le trajet avec le moins de changements est " + h+" :");}
 
 
 
-			texte2=g.afficherrésultat(départ, arrivée,z,1);
+			texte2=g.afficherrÃ©sultat(dÃ©part, arrivÃ©e,z,2);
 
 
 
@@ -310,23 +306,41 @@ public class PlusCourtChemin {
 
 		else {
 
-			h.add(arrivée);
+			h.add(arrivÃ©e);
 
 
 
-			h.set(0, h.get(0)+"(" + g.sommets[g.stringtoint(départ)+k].ligne +")");
-
+			if (g.chemin.get(0+k).ligne==15) {
+				h.set(0, h.get(0)+"(" + "3bis"+")");
+	            }
+	            else {
+	            	if(g.chemin.get(0+k).ligne==16) {
+	            		h.set(0, h.get(0)+"(" + "7bis"+")");
+	            	}
+	            	else {
+	            		h.set(0, h.get(0)+"(" + g.chemin.get(0+k).ligne+")");
+	            	}
+	            }
 			for (int m=1; m<h.size()-1;m++) {
 
 				if (h.get(m).equals(h.get(m+1))){
+					if (g.chemin.get(m+1).ligne==15) {
+						h.set(m+1, h.get(m+1)+"(" + "3bis"+")");
+			            }
+			            else {
+			            	if(g.chemin.get(m+1).ligne==16) {
+			            		h.set(m+1, h.get(m+1)+"(" + "7bis"+")");
+			            	}
+			            	else {
+			            		h.set(m+1, h.get(m+1)+"(" + g.chemin.get(m+1).ligne+")");
+			            	}
+					
 
-					h.set(m+1, h.get(m+1)+"(" + g.chemin.get(m+1).ligne +")");
+			            }
 
 				}
-
 			}
-
-			if ((g.sommets[g.stringtoint(arrivée)+z].getdistanceàlasource()-25)>3600000) {
+			if ((g.sommets[g.stringtoint(arrivÃ©e)+z].getdistanceÃ lasource()-25)>3600000) {
 
 				texte1="";
 
@@ -334,17 +348,17 @@ public class PlusCourtChemin {
 
 			else {
 
-			texte1=("Le trajet le plus rapide est " + h+" :");}
+			texte1=("Le trajet avec le moins de changements est " + h+" :");}
 
 
 
-			texte2= g.afficherrésultat(départ, arrivée,z,1);
+			texte2= g.afficherrÃ©sultat(dÃ©part, arrivÃ©e,z,2);
 
 
 
 
 
-		}
+	            }
 
 
 
@@ -353,5 +367,4 @@ public class PlusCourtChemin {
 
 
 	}
-
-}
+	}
