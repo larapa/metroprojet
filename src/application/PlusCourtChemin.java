@@ -1,19 +1,32 @@
+
 package application;
+
+
+
 import java.io.BufferedReader;
+
 import java.io.File;
+
 import java.io.FileNotFoundException;
+
 import java.io.FileReader;
+
 import java.io.IOException;
+
 import java.nio.file.Files;
+
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
+
 import java.util.Collections;
+
 import java.util.List;
 
 
 
 public class PlusCourtChemin {
-
+    boolean b;
 	String départ;
 
 	String arrivée;
@@ -24,8 +37,8 @@ public class PlusCourtChemin {
 
 	
 
-	public PlusCourtChemin (String départ, String arrivée,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites) {
-
+	public PlusCourtChemin(String départ, String arrivée,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites,boolean a) {
+        this.b=a;
 		this.départ = départ;
 
 		this.arrivée = arrivée;
@@ -35,8 +48,6 @@ public class PlusCourtChemin {
 		this.StationsInterdites = StationsInterdites;
 
 	}
-
-	
 
 	public String afficheChemin() throws IOException {
 
@@ -173,11 +184,10 @@ public class PlusCourtChemin {
 		g.retirerligne2(LignesInterdites);
 
 		g.retirerstation2(StationsInterdites);
+		if(!this.b) {
 
-
-
-		//calcul du plus court chemin
-
+		g.transformearrête();
+		}
 		int w=0;
 
 
@@ -210,6 +220,11 @@ public class PlusCourtChemin {
 
 				e.retirerstation2(StationsInterdites);
 
+				if(!this.b) {
+
+					e.transformearrête();
+					}
+
 				e.calculpluscourtedistance(départ,arrivée,w,y);
 
 				int m=e.sommets[e.stringtoint(arrivée) + y].getdistanceàlasource();
@@ -241,12 +256,6 @@ public class PlusCourtChemin {
 
 
 		g.calculerchemin();
-
-
-
-
-
-
 
 		ArrayList<Sommet> path = g.getchemin();
 
@@ -293,13 +302,21 @@ public class PlusCourtChemin {
 			}
 
 			else {
+            if(this.b) {
+			texte1=("Le trajet le plus court est " + h+" :");
+            }
+            else {
+            texte1=("Le trajet avec le moins de changements est " + h+" :");
+            }
+			}
 
-			texte1=("Le trajet avec le moins de changements est " + h+" :");}
 
-
-
-			texte2=g.afficherrésultat(départ, arrivée,z,2);
-
+            if (this.b) {
+			texte2=g.afficherrésultat(départ, arrivée,z,1);
+            }
+            else {
+            	texte2=g.afficherrésultat(départ, arrivée,z,2);
+            }
 
 
 		}
@@ -348,11 +365,22 @@ public class PlusCourtChemin {
 
 			else {
 
-			texte1=("Le trajet avec le moins de changements est " + h+" :");}
+				 if(this.b) {
+						texte1=("Le trajet le plus court est " + h+" :");
+			            }
+			            else {
+			            texte1=("Le trajet avec le moins de changements est " + h+" :");
+			            }
+						}
 
 
 
-			texte2= g.afficherrésultat(départ, arrivée,z,2);
+			 if (this.b) {
+					texte2=g.afficherrésultat(départ, arrivée,z,1);
+		            }
+		            else {
+		            	texte2=g.afficherrésultat(départ, arrivée,z,2);
+		            }
 
 
 
