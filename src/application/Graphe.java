@@ -6,16 +6,16 @@ import java.util.List;
 public class Graphe {
 	public Sommet[] sommets;
 	public int nombreSommets;
-	public ArrayList<ArrÃªte> arrÃªtes;
-	public int nombreArrÃªtes;
+	public ArrayList<Arr¨ºte> arr¨ºtes;
+	public int nombreArr¨ºtes;
 	public int sat;
 	public int eat;
 	public ArrayList<Sommet> chemin = new ArrayList<Sommet>();
 	
 	public int calculnombreSommets() {
-		ArrayList<ArrÃªte> a=this.arrÃªtes;
+		ArrayList<Arr¨ºte> a=this.arr¨ºtes;
 		int nombreSommets = 0;
-		for (ArrÃªte e : a) {	
+		for (Arr¨ºte e : a) {	
 			if (e.getdestination() > nombreSommets)
 				nombreSommets = e.getdestination();
 			if (e.getorigine() > nombreSommets)
@@ -25,17 +25,17 @@ public class Graphe {
 		return nombreSommets;
 	}
 
-	public Graphe(ArrayList<ArrÃªte> t) {
-		this.arrÃªtes = t;
+	public Graphe(ArrayList<Arr¨ºte> t) {
+		this.arr¨ºtes = t;
 		this.nombreSommets = this.calculnombreSommets();
 		this.sommets = new Sommet[this.nombreSommets];
 		for (int n = 0; n < this.nombreSommets; n++) {
 			this.sommets[n] = new Sommet();
 		}
-		this.nombreArrÃªtes = this.arrÃªtes.size();
-		for (int m = 0; m < this.nombreArrÃªtes; m++) {
-			this.sommets[arrÃªtes.get(m).getorigine()].getarrÃªtes().add(arrÃªtes.get(m));
-			this.sommets[arrÃªtes.get(m).getdestination()].getarrÃªtes().add(arrÃªtes.get(m));
+		this.nombreArr¨ºtes = this.arr¨ºtes.size();
+		for (int m = 0; m < this.nombreArr¨ºtes; m++) {
+			this.sommets[arr¨ºtes.get(m).getorigine()].getarr¨ºtes().add(arr¨ºtes.get(m));
+			this.sommets[arr¨ºtes.get(m).getdestination()].getarr¨ºtes().add(arr¨ºtes.get(m));
 		}
 	}
 
@@ -49,48 +49,48 @@ public class Graphe {
 	}
 	
 	public int getpluscourtedistance() {
-		int sommetstockÃ© = 0;
-		int distancestockÃ©e = Integer.MAX_VALUE;
+		int sommetstock¨¦ = 0;
+		int distancestock¨¦e = Integer.MAX_VALUE;
 		for (int i = 0; i < this.sommets.length; i++) {
-			int distanceactuelle = this.sommets[i].getdistanceÃ lasource();
-			if (!this.sommets[i].estVisitÃ©() && distanceactuelle < distancestockÃ©e) {
-				distancestockÃ©e = distanceactuelle;
-				sommetstockÃ© = i;
+			int distanceactuelle = this.sommets[i].getdistance¨¤lasource();
+			if (!this.sommets[i].estVisit¨¦() && distanceactuelle < distancestock¨¦e) {
+				distancestock¨¦e = distanceactuelle;
+				sommetstock¨¦ = i;
 			}
 		}
-		return sommetstockÃ©;
+		return sommetstock¨¦;
 	}
 	
 	public void calculpluscourtedistance(String a, String b,int k,int l) {
-		int dÃ©butÃ =this.stringtoint(a)+k;
-		int finÃ =this.stringtoint(b)+ l;
-		this.sat = dÃ©butÃ ;
-		this.eat = finÃ ;
-		this.sommets[dÃ©butÃ ].setdistanceÃ lasource(0);
-		int sommetsuivant = dÃ©butÃ ;
+		int d¨¦but¨¤=this.stringtoint(a)+k;
+		int fin¨¤=this.stringtoint(b)+ l;
+		this.sat = d¨¦but¨¤;
+		this.eat = fin¨¤;
+		this.sommets[d¨¦but¨¤].setdistance¨¤lasource(0);
+		int sommetsuivant = d¨¦but¨¤;
 		for (int i = 0; i < this.sommets.length; i++) {
-			ArrayList<ArrÃªte> currentSommetArcs = this.sommets[sommetsuivant].getarrÃªtes();
+			ArrayList<Arr¨ºte> currentSommetArcs = this.sommets[sommetsuivant].getarr¨ºtes();
 			for (int joinedArc = 0; joinedArc < currentSommetArcs.size(); joinedArc++) {
-				int neighbourIndex = currentSommetArcs.get(joinedArc).getautreextrÃ©mitÃ©(sommetsuivant);
-				if (!this.sommets[neighbourIndex].estVisitÃ©()) {
-					int tentative = this.sommets[sommetsuivant].getdistanceÃ lasource() + currentSommetArcs.get(joinedArc).getpoids();
-					if (tentative < sommets[neighbourIndex].getdistanceÃ lasource()) {
-						sommets[neighbourIndex].setdistanceÃ lasource(tentative);
-						sommets[neighbourIndex].setprÃ©dÃ©cesseur(sommetsuivant);
+				int neighbourIndex = currentSommetArcs.get(joinedArc).getautreextr¨¦mit¨¦(sommetsuivant);
+				if (!this.sommets[neighbourIndex].estVisit¨¦()) {
+					int tentative = this.sommets[sommetsuivant].getdistance¨¤lasource() + currentSommetArcs.get(joinedArc).getpoids();
+					if (tentative < sommets[neighbourIndex].getdistance¨¤lasource()) {
+						sommets[neighbourIndex].setdistance¨¤lasource(tentative);
+						sommets[neighbourIndex].setpr¨¦d¨¦cesseur(sommetsuivant);
 					}
 				}
 			}
-			sommets[sommetsuivant].setvisitÃ©(true);
+			sommets[sommetsuivant].setvisit¨¦(true);
 			sommetsuivant = getpluscourtedistance();
 		}
 	}
 
-    public String afficherrÃ©sultat(String dep,String arr,int a,int b) {
+    public String afficherr¨¦sultat(String dep,String arr,int a,int b) {
 		String phrasetype="Ce trajet entre " + dep + "et " + arr + "dure ";
 		String sortie="";
-		int zz=sommets[stringtoint(arr)+a].getdistanceÃ lasource()-25;
+		int zz=sommets[stringtoint(arr)+a].getdistance¨¤lasource()-25;
 		if (zz>3600000) {
-			return "Un tel itinÃ©raire n'existe pas";
+			return "Un tel itin¨¦raire n'existe pas";
 		}
 		else {
 			if(b==2) {
@@ -238,20 +238,20 @@ public class Graphe {
 	   return nombreSommets;
     }
 
-    public ArrayList<ArrÃªte> getarrÃªtes() {
-	   return this.arrÃªtes;
+    public ArrayList<Arr¨ºte> getarr¨ºtes() {
+	   return this.arr¨ºtes;
     }
 
-    public int getnombrearrÃªtes() {
-    	return nombreArrÃªtes;
+    public int getnombrearr¨ºtes() {
+    	return nombreArr¨ºtes;
     }
 
     public void calculerchemin(){
     	int sommetactuel = eat;
     	while(sommetactuel != sat){
-    		int a=sommets[sommetactuel].getprÃ©dÃ©cesseur();
+    		int a=sommets[sommetactuel].getpr¨¦d¨¦cesseur();
     		chemin.add(sommets[a]);
-    		sommetactuel = sommets[sommetactuel].getprÃ©dÃ©cesseur();
+    		sommetactuel = sommets[sommetactuel].getpr¨¦d¨¦cesseur();
     	}
     }
 
@@ -263,6 +263,15 @@ public class Graphe {
     	for (int i=0;i<t.size();i++) {
     		this.sommets[i].nom=t.get(i);
     	}
+    }
+    
+    public void donnecord(float cord[]) {
+    	for (int i = 0; i < cord.length-1; i+=2) {
+			this.sommets[i/2].x = cord[i];
+		}
+    	for (int i = 1; i < cord.length; i+=2) {
+			this.sommets[(i+1)/2-1].y = cord[i];
+		}
     }
 
     public int nombredeligne(String t){
@@ -290,9 +299,9 @@ public class Graphe {
     }
     
     public void retirerligne(int a) {
-    	for (int i=0;i<this.arrÃªtes.size();i++) {
-    		if (this.sommets[this.arrÃªtes.get(i).getdestination()].ligne==a || this.sommets[this.arrÃªtes.get(i).getorigine()].ligne==a ) {
-    			this.arrÃªtes.get(i).poids=3600001;
+    	for (int i=0;i<this.arr¨ºtes.size();i++) {
+    		if (this.sommets[this.arr¨ºtes.get(i).getdestination()].ligne==a || this.sommets[this.arr¨ºtes.get(i).getorigine()].ligne==a ) {
+    			this.arr¨ºtes.get(i).poids=3600001;
     		}
     	}
     }
@@ -304,9 +313,9 @@ public class Graphe {
     }
 
     public void retirerstation(String d) {
-    	for (int i=0;i<this.arrÃªtes.size();i++) {
-    		if (this.sommets[this.arrÃªtes.get(i).getdestination()].nom.equals(d) || this.sommets[this.arrÃªtes.get(i).getorigine()].nom.contentEquals(d) ) {
-    			this.arrÃªtes.get(i).poids=3600001;
+    	for (int i=0;i<this.arr¨ºtes.size();i++) {
+    		if (this.sommets[this.arr¨ºtes.get(i).getdestination()].nom.equals(d) || this.sommets[this.arr¨ºtes.get(i).getorigine()].nom.contentEquals(d) ) {
+    			this.arr¨ºtes.get(i).poids=3600001;
     		}
     	}
     }
@@ -317,24 +326,11 @@ public class Graphe {
     	}
     }
 
-	public void transformearrÃªte(){
-		for (int i=0;i<this.arrÃªtes.size();i++) {
-			if ((this.sommets[this.arrÃªtes.get(i).origine].nom).equals(this.sommets[this.arrÃªtes.get(i).destination].nom)){
-				this.arrÃªtes.get(i).poids=36000+25;
+	public void transformearr¨ºte(){
+		for (int i=0;i<this.arr¨ºtes.size();i++) {
+			if ((this.sommets[this.arr¨ºtes.get(i).origine].nom).equals(this.sommets[this.arr¨ºtes.get(i).destination].nom)){
+				this.arr¨ºtes.get(i).poids=36000+25;
 				}
 			}
 		}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
