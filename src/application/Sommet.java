@@ -5,42 +5,43 @@ import java.util.ArrayList;
 public class Sommet {
 	public String nom;
 	public int ligne;
-	public int distanceÃ nous = Integer.MAX_VALUE;
-	public boolean visitÃ©;
-	public ArrayList<ArrÃªte> arrÃªtes = new ArrayList<ArrÃªte>();
-	public int prÃ©dÃ©cesseur;
+	public int distance¨¤nous = Integer.MAX_VALUE;
+	public boolean visit¨¦;
+	public ArrayList<Arr¨ºte> arr¨ºtes = new ArrayList<Arr¨ºte>();
+	public int pr¨¦d¨¦cesseur;
+	public float x;
+	public float y;
 
-	public int getdistanceÃ lasource() {
-		return distanceÃ nous;
+	public int getdistance¨¤lasource() {
+		return distance¨¤nous;
 	}
 
-	public void setdistanceÃ lasource(int d) {
-		this.distanceÃ nous = d;
+	public void setdistance¨¤lasource(int d) {
+		this.distance¨¤nous = d;
 	}
 
-	public boolean estVisitÃ©() {
-		return this.visitÃ©;
+	public boolean estVisit¨¦() {
+		return this.visit¨¦;
 	}
 
-	public void setvisitÃ©(boolean v) {
-		this.visitÃ© = v;
+	public void setvisit¨¦(boolean v) {
+		this.visit¨¦ = v;
 	}
 
-	public ArrayList<ArrÃªte> getarrÃªtes() {
-		return this.arrÃªtes;
+	public ArrayList<Arr¨ºte> getarr¨ºtes() {
+		return this.arr¨ºtes;
 	}
 
-	public void setarrÃªtes(ArrayList<ArrÃªte> t) {
-		this.arrÃªtes = t;
+	public void setarr¨ºtes(ArrayList<Arr¨ºte> t) {
+		this.arr¨ºtes = t;
 	}
 
-	public int getprÃ©dÃ©cesseur(){
-		return prÃ©dÃ©cesseur;
+	public int getpr¨¦d¨¦cesseur(){
+		return pr¨¦d¨¦cesseur;
 	}
 
-	public void setprÃ©dÃ©cesseur(int p){
-		this.prÃ©dÃ©cesseur = p;
+	public void setpr¨¦d¨¦cesseur(int p){
+		this.pr¨¦d¨¦cesseur = p;
 	}
 
 }
-
