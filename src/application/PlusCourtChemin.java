@@ -34,9 +34,9 @@ import javax.imageio.ImageIO;
 
 public class PlusCourtChemin {
     boolean b;
-	String d®¶part;
+	String d√©part;
 
-	String arriv®¶e;
+	String arriv√©e;
 
 	ArrayList<Integer> LignesInterdites;
 
@@ -44,11 +44,11 @@ public class PlusCourtChemin {
 
 	
 
-	public PlusCourtChemin(String d®¶part, String arriv®¶e,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites,boolean a) {
+	public PlusCourtChemin(String d√©part, String arriv√©e,ArrayList<Integer> LignesInterdites, ArrayList<String> StationsInterdites,boolean a) {
         this.b=a;
-		this.d®¶part = d®¶part;
+		this.d√©part = d√©part;
 
-		this.arriv®¶e = arriv®¶e;
+		this.arriv√©e = arriv√©e;
 
 		this.LignesInterdites = LignesInterdites;
 
@@ -70,9 +70,9 @@ public class PlusCourtChemin {
 
 
 
-		ArrayList<Arr®∫te> arr®∫tes = new  ArrayList<Arr®∫te>();
+		ArrayList<Arr√™te> arr√™tes = new  ArrayList<Arr√™te>();
 
-		List<String> arr®∫tesString = null;
+		List<String> arr√™tesString = null;
 
 		BufferedReader bf=new BufferedReader(new FileReader("./src/application/coordonnes1.txt"));
 		
@@ -92,16 +92,17 @@ public class PlusCourtChemin {
 		for (int i = 0; i < numbers.length; i++) {
 		
 			cord[i]=Float.parseFloat(numbers[i]);
+			
 		}
 		
 		bf.close();
 
 		
-		arr®∫tesString = Files.readAllLines(Paths.get("./src/application/Arr®∫tes.txt"));
+		arr√™tesString = Files.readAllLines(Paths.get("./src/application/Arr√™tes.txt"));
 
 
 
-		for (String s: arr®∫tesString) {
+		for (String s: arr√™tesString) {
 
 			String str[] = s.split(" ");
 
@@ -115,7 +116,7 @@ public class PlusCourtChemin {
 
 			}
 
-			arr®∫tes.add(new Arr®∫te(b.get(0), b.get(1), b.get(2)+25));
+			arr√™tes.add(new Arr√™te(b.get(0), b.get(1), b.get(2)+25));
 
 		}
 
@@ -197,9 +198,9 @@ public class PlusCourtChemin {
 
 
 
-		//on cr®¶e le graphe:
+		//on cr¬®¬¶e le graphe:
 
-		Graphe g = new Graphe(arr®∫tes);
+		Graphe g = new Graphe(arr√™tes);
 
 
 
@@ -216,7 +217,7 @@ public class PlusCourtChemin {
 		g.retirerstation2(StationsInterdites);
 		if(!this.b) {
 
-		g.transformearr®∫te();
+		g.transformearr√™te();
 		}
 		int w=0;
 
@@ -230,15 +231,15 @@ public class PlusCourtChemin {
 
 
 
-		while (w<g.nombredeligne(d®¶part)) {
+		while (w<g.nombredeligne(d√©part)) {
 
 
 
 			int y=0;
 
-			while (y<g.nombredeligne(arriv®¶e)) {
+			while (y<g.nombredeligne(arriv√©e)) {
 
-				Graphe e = new Graphe(arr®∫tes);
+				Graphe e = new Graphe(arr√™tes);
 
 
 				
@@ -252,12 +253,12 @@ public class PlusCourtChemin {
 
 				if(!this.b) {
 
-					e.transformearr®∫te();
+					e.transformearr√™te();
 					}
 
-				e.calculpluscourtedistance(d®¶part,arriv®¶e,w,y);
+				e.calculpluscourtedistance(d√©part,arriv√©e,w,y);
 
-				int m=e.sommets[e.stringtoint(arriv®¶e) + y].getdistance®§lasource();
+				int m=e.sommets[e.stringtoint(arriv√©e) + y].getdistance√†lasource();
 
 
 
@@ -281,7 +282,7 @@ public class PlusCourtChemin {
 
 
 
-		g.calculpluscourtedistance(d®¶part,arriv®¶e,k,z);
+		g.calculpluscourtedistance(d√©part,arriv√©e,k,z);
 
 
 
@@ -369,7 +370,7 @@ public class PlusCourtChemin {
 			}
 		}	
 
-		switch(g.sommets[g.stringtoint(d®¶part)].ligne){
+		switch(g.sommets[g.stringtoint(d√©part)].ligne){
 		case 1:
 		graphics.setColor(Color.black);
 		break;
@@ -419,8 +420,8 @@ public class PlusCourtChemin {
 		graphics.setColor(Color.lightGray);
 		break;
 		}
-		graphics.drawString(g.sommets[g.stringtoint(d®¶part)].nom, g.sommets[g.stringtoint(d®¶part)].x, g.sommets[g.stringtoint(d®¶part)].y);
-		graphics.draw(new Line2D.Double(g.sommets[g.stringtoint(d®¶part)].x,g.sommets[g.stringtoint(d®¶part)].y , path.get(0).x,path.get(0).y));
+		graphics.drawString(g.sommets[g.stringtoint(d√©part)].nom, g.sommets[g.stringtoint(d√©part)].x, g.sommets[g.stringtoint(d√©part)].y);
+		graphics.draw(new Line2D.Double(g.sommets[g.stringtoint(d√©part)].x,g.sommets[g.stringtoint(d√©part)].y , path.get(0).x,path.get(0).y));
 		
 		for (int i = 0; i < path.size()-1; i++) {
 			switch(path.get(i).ligne){
@@ -479,9 +480,9 @@ public class PlusCourtChemin {
 		}
 		
 		
-		graphics.draw(new Line2D.Double(path.get(path.size()-1).x,path.get(path.size()-1).y,g.sommets[g.stringtoint(arriv®¶e)].x ,g.sommets[g.stringtoint(arriv®¶e)].y));
+		graphics.draw(new Line2D.Double(path.get(path.size()-1).x,path.get(path.size()-1).y,g.sommets[g.stringtoint(arriv√©e)].x ,g.sommets[g.stringtoint(arriv√©e)].y));
 		
-		graphics.drawString(g.sommets[g.stringtoint(arriv®¶e)].nom, g.sommets[g.stringtoint(arriv®¶e)].x, g.sommets[g.stringtoint(arriv®¶e)].y);
+		graphics.drawString(g.sommets[g.stringtoint(arriv√©e)].nom, g.sommets[g.stringtoint(arriv√©e)].x, g.sommets[g.stringtoint(arriv√©e)].y);
 		
 		graphics.dispose();
 		
@@ -494,14 +495,14 @@ public class PlusCourtChemin {
 
 
 
-		if (h.contains(arriv®¶e)) {
+		if (h.contains(arriv√©e)) {
 
-			System.out.println(g.sommets[g.stringtoint(d®¶part)].ligne);
-            if (g.chemin.get(0+k).ligne==15) {
+			System.out.println(g.sommets[g.stringtoint(d√©part)].ligne);
+            if (g.chemin.get(0).ligne==15) {
 			h.set(0, h.get(0)+"(" + "3bis"+")");
             }
             else {
-            	if(g.chemin.get(0+k).ligne==16) {
+            	if(g.chemin.get(0).ligne==16) {
             		h.set(0, h.get(0)+"(" + "7bis"+")");
             	}
             	else {
@@ -518,7 +519,7 @@ public class PlusCourtChemin {
 
 			}
 
-			if ((g.sommets[g.stringtoint(arriv®¶e)+z].getdistance®§lasource()-25)>3600000) {
+			if ((g.sommets[g.stringtoint(arriv√©e)+z].getdistance√†lasource()-25)>3600000) {
 
 				texte1="";
 
@@ -535,30 +536,31 @@ public class PlusCourtChemin {
 
 
             if (this.b) {
-			texte2=g.afficherr®¶sultat(d®¶part, arriv®¶e,z,1);
+			texte2=g.afficherr√©sultat(d√©part, arriv√©e,z,1,LignesInterdites,StationsInterdites);
             }
+            
             else {
-            	texte2=g.afficherr®¶sultat(d®¶part, arriv®¶e,z,2);
+            	texte2=g.afficherr√©sultat(d√©part, arriv√©e,z,2,LignesInterdites,StationsInterdites);
             }
 
-
+            
 		}
 
 		else {
 
-			h.add(arriv®¶e);
+			h.add(arriv√©e);
 
 
 
-			if (g.chemin.get(0+k).ligne==15) {
+			if (g.chemin.get(0).ligne==15) {//+k
 				h.set(0, h.get(0)+"(" + "3bis"+")");
 	            }
 	            else {
-	            	if(g.chemin.get(0+k).ligne==16) {
+	            	if(g.chemin.get(0).ligne==16) {
 	            		h.set(0, h.get(0)+"(" + "7bis"+")");
 	            	}
 	            	else {
-	            		h.set(0, h.get(0)+"(" + g.chemin.get(0+k).ligne+")");
+	            		h.set(0, h.get(0)+"(" + g.chemin.get(0).ligne+")");
 	            	}
 	            }
 			for (int m=1; m<h.size()-1;m++) {
@@ -580,7 +582,7 @@ public class PlusCourtChemin {
 
 				}
 			}
-			if ((g.sommets[g.stringtoint(arriv®¶e)+z].getdistance®§lasource()-25)>3600000) {
+			if ((g.sommets[g.stringtoint(arriv√©e)+z].getdistance√†lasource()-25)>3600000) {
 
 				texte1="";
 
@@ -599,10 +601,10 @@ public class PlusCourtChemin {
 
 
 			 if (this.b) {
-					texte2=g.afficherr®¶sultat(d®¶part, arriv®¶e,z,1);
+					texte2=g.afficherr√©sultat(d√©part, arriv√©e,z,1,LignesInterdites,StationsInterdites);
 		            }
 		            else {
-		            	texte2=g.afficherr®¶sultat(d®¶part, arriv®¶e,z,2);
+		            	texte2=g.afficherr√©sultat(d√©part, arriv√©e,z,2,LignesInterdites,StationsInterdites);
 		            }
 
 
@@ -612,7 +614,9 @@ public class PlusCourtChemin {
 	            }
 
 
-
+        if (texte2=="Un tel itin√©raire n'existe pas") {
+        	texte1="";
+        			}
 		return texte1 + texte2;
 
 
