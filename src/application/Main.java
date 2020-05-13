@@ -40,9 +40,9 @@ public class Main extends Application  {
 	
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		window.setTitle("Menu itin®¶raire m®¶tro");
+		window.setTitle("Menu itin√©raire m√©tro");
 		BufferedReader br;
-		String pr®¶c="";
+		String pr√©c="";
 		String motLu;
 		ArrayList<Integer> lignesbis=new ArrayList<Integer>();
 		List<String> nombis = new ArrayList<String>();
@@ -51,23 +51,23 @@ public class Main extends Application  {
 			while((motLu = br.readLine()) != null)
 			{
 				if (motLu.charAt(motLu.length()-2) ==';'){
-					if (pr®¶c.equals(motLu.substring(0,motLu.length()-2 ))){
+					if (pr√©c.equals(motLu.substring(0,motLu.length()-2 ))){
 					}
 					else {
 						int monEntier = Integer.parseInt(motLu.charAt(motLu.length()-1)+"");
 						lignesbis.add(monEntier);
 						nombis.add(motLu.substring(0,motLu.length()-2 ));
-						pr®¶c=motLu.substring(0,motLu.length()-2 );
+						pr√©c=motLu.substring(0,motLu.length()-2 );
 					}	
 				}
 				else {
-					if (pr®¶c.equals(motLu.substring(0,motLu.length()-3 ))){
+					if (pr√©c.equals(motLu.substring(0,motLu.length()-3 ))){
 					}
 					else {
 						int monEntier=Integer.parseInt(motLu.charAt(motLu.length()-1)+"") + (Integer.parseInt(motLu.charAt(motLu.length()-2)+"")*10) ;
 						lignesbis.add(monEntier);
 						nombis.add(motLu.substring(0,motLu.length()-3 ));
-						pr®¶c=motLu.substring(0,motLu.length()-3 );
+						pr√©c=motLu.substring(0,motLu.length()-3 );
 					}
 				}
 			}
@@ -81,23 +81,23 @@ public class Main extends Application  {
 		}
 		comboBox1 = new ComboBox<>();
 		comboBox1.getItems().addAll(nombis);
-		comboBox1.setPromptText("Station de d®¶part");
+		comboBox1.setPromptText("Station de d√©part");
 		comboBox1.setEditable(true);
 		comboBox2 = new ComboBox<>();
 		comboBox2.getItems().addAll(nombis);
-		comboBox2.setPromptText("Station d'arriv®¶e");
+		comboBox2.setPromptText("Station d'arriv√©e");
 		comboBox2.setEditable(true);
 		comboBox3 = new ComboBox<>();
 		comboBox3.getItems().addAll(nombis);
-		comboBox3.setPromptText("Stations ®§ interdire");
+		comboBox3.setPromptText("Stations √† interdire");
 		comboBox3.setEditable(true);
 		comboBox4 = new ComboBox<>();
 		List<String> test = new ArrayList<String>();
-		test.add("Itin®¶raire le plus rapide");
-		test.add("Itin®¶raire avec le moins de changements");
+		test.add("Itin√©raire le plus rapide");
+		test.add("Itin√©raire avec le moins de changements");
 		test.add("Les deux");
 		comboBox4.getItems().addAll(test);
-		comboBox4.setPromptText("Choix du type d'itin®¶raire");
+		comboBox4.setPromptText("Choix du type d'itin√©raire");
 		comboBox4.setEditable(true);
 		listview = new ListView<>();
 		listview.getItems().addAll("1","2","3","3 bis","4","5","6","7","7 bis","8","9","10","11","12","13","14");
@@ -112,7 +112,7 @@ public class Main extends Application  {
 		
 		
 		bouton4 = new Button();
-		bouton4.setText("Nouveau itin®¶raire");
+		bouton4.setText("Nouveau itin√©raire");
 		bouton4.setOnAction(e -> window.setScene(scene)   );
 		
 		
@@ -122,7 +122,7 @@ public class Main extends Application  {
 		bouton5.setOnAction(afficher);
 		
 		bouton6 = new Button();
-		bouton6.setText("Afficher l'itin®¶raire avec le moins de changement");
+		bouton6.setText("Afficher l'itin√©raire avec le moins de changement");
 		MyEventHandler2 afficher2 = new MyEventHandler2();
 		bouton6.setOnAction(afficher2);
 		
@@ -132,20 +132,20 @@ public class Main extends Application  {
 		
 		//
 		bouton1 = new Button();
-		bouton1.setText("Calcul itin®¶raire");
+		bouton1.setText("Calcul itin√©raire");
 		
 		
 		
 		bouton1.setOnAction(e ->   {
 			try {
-				if (comboBox4.getValue().equals("Itin®¶raire avec le moins de changements")) {
+				if (comboBox4.getValue().equals("Itin√©raire avec le moins de changements")) {
 					
 					PlusCourtChemin C = new PlusCourtChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites,false);//important ici
 					label.setText(C.afficheChemin());
 					window.setScene(scene2);
 				}
 				else {
-					if(comboBox4.getValue().equals("Itin®¶raire le plus rapide")) {
+					if(comboBox4.getValue().equals("Itin√©raire le plus rapide")) {
 						PlusCourtChemin C = new PlusCourtChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites,true);//important ici
 						label.setText(C.afficheChemin()); //important ici
 						window.setScene(scene2);
