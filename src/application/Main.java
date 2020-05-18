@@ -138,6 +138,13 @@ public class Main extends Application  {
 		
 		bouton1.setOnAction(e ->   {
 			try {
+				if(comboBox4.getValue()==null) {
+					PlusCourtChemin C = new PlusCourtChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites,true);//important ici
+					PlusCourtChemin CC = new PlusCourtChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites,false);//important ici
+					label.setText(C.afficheChemin() + "\n" +"\n" + CC.afficheChemin() );
+					window.setScene(scene2);
+				}
+				else {
 				if (comboBox4.getValue().equals("Itinéraire avec le moins de changements")) {
 					
 					PlusCourtChemin C = new PlusCourtChemin(comboBox1.getValue(), comboBox2.getValue(), tabint(),stationsinterdites,false);//important ici
@@ -156,6 +163,7 @@ public class Main extends Application  {
 						label.setText(C.afficheChemin() + "\n" +"\n" + CC.afficheChemin() );
 						window.setScene(scene2);
 					}
+				}
 				}
 			} 
 			catch (IOException e1) {
